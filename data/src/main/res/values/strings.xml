@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">data</string>
+    <string name="api">http://www.baidu.com</string>
+</resources>

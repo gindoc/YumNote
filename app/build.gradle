@@ -1,0 +1,64 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+    defaultConfig {
+        applicationId "com.cwenhui.yumnote"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    configurations.all {
+        resolutionStrategy.force 'com.google.code.findbugs:jsr305:1.3.9'
+    }
+    dataBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
+    testCompile "junit:junit:$rootProject.junitVersion"
+
+    // Add Dagger dependencies
+    compile "com.google.dagger:dagger:$rootProject.daggerVersion"
+    apt "com.google.dagger:dagger-compiler:$rootProject.daggerVersion"
+
+    //RxLifeCycle
+    compile "com.trello:rxlifecycle:$rootProject.rxLifeCycleVersion"
+    // If you want to bind to Android-specific lifecycles
+    compile "com.trello:rxlifecycle-android:$rootProject.rxLifeCycleVersion"
+    // If you want pre-written Activities and Fragments you can subclass as providers
+    compile "com.trello:rxlifecycle-components:$rootProject.rxLifeCycleVersion"
+
+    compile "io.reactivex:rxjava:$rootProject.rxjavaVersion"
+
+    compile "io.reactivex:rxandroid:$rootProject.rxandroidVersion"
+
+    compile "com.github.bumptech.glide:glide:$rootProject.glideVersion"
+
+    compile "com.jakewharton.timber:timber:$rootProject.timberVersion"
+
+    compile 'me.yokeyword:fragmentation:0.7.12'
+
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+
+    // EasyPermissions
+    compile 'pub.devrel:easypermissions:0.2.1'
+}
