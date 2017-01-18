@@ -2,6 +2,8 @@ package com.cwenhui.yumnote.dagger.modules;
 
 import android.support.v4.app.FragmentManager;
 
+import com.cwenhui.data.repository.impl.SampleDataRepository;
+import com.cwenhui.domain.repository.SampleRepository;
 import com.cwenhui.yumnote.base.BaseActivity;
 
 import java.lang.ref.WeakReference;
@@ -31,4 +33,8 @@ public class ActivityModule {
         return mActivity.get().getSupportFragmentManager();
     }
 
+    @Provides
+    public SampleRepository providesSampleRepository(SampleDataRepository repository) {
+        return repository;
+    }
 }

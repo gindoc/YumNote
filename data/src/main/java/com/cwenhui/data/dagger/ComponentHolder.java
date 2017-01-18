@@ -1,17 +1,19 @@
 package com.cwenhui.data.dagger;
 
 /**
- * Created by xiaochuang on 5/14/16.
+ * Author: GIndoc on 2017/1/18 21:53
+ * email : 735506583@qq.com
+ * FOR   :
  */
+
 public class ComponentHolder {
-    private static ApplicationComponent sAppComponent;
+    private static DataComponent dataComponent;
 
-    public static void setAppComponent(ApplicationComponent appComponent) {
-        sAppComponent = appComponent;
+    public static DataComponent getDataComponent() {
+        return dataComponent;
     }
 
-    public static ApplicationComponent getAppComponent() {
-        return sAppComponent;
+    public static void setDataComponent(DataComponent dataComponent) {
+        ComponentHolder.dataComponent = dataComponent;
     }
-
 }

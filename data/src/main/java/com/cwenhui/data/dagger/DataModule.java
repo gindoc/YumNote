@@ -1,17 +1,12 @@
 package com.cwenhui.data.dagger;
 
-import android.app.Application;
-import android.content.Context;
-import android.content.res.AssetManager;
 import android.content.res.Resources;
 
 import com.cwenhui.data.BuildConfig;
 import com.cwenhui.data.R;
 import com.cwenhui.data.service.Api;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 import javax.inject.Named;
 
@@ -19,37 +14,31 @@ import dagger.Module;
 import dagger.Provides;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
-import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
-import okhttp3.Protocol;
-import okhttp3.Request;
 import okhttp3.RequestBody;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import okio.Buffer;
 import retrofit2.Converter;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import timber.log.Timber;
 
 
 /**
  * Created by louiszgm-pc on 2016/9/22.
  */
 @Module
-public class DataManagerModule {
-    private Application mApp;
+public class DataModule {
+//    private Application mApp;
 
-    public DataManagerModule(Application app) {
-        mApp = app;
+    public DataModule(/*Application app*/) {
+//        mApp = app;
     }
 
-    @Provides
-    public Context provideContext() {
-        return mApp;
-    }
+//    @Provides
+//    public Context provideContext() {
+//        return mApp;
+//    }
 
     @Provides
     @Named("api_url")
@@ -68,7 +57,7 @@ public class DataManagerModule {
     }
 
 
-    private String createResponseBody(Interceptor.Chain chain) {
+    /*private String createResponseBody(Interceptor.Chain chain) {
         HttpUrl uri = chain.request().url();
         String path = uri.url().getPath();
         String query = uri.url().getQuery();
@@ -102,9 +91,9 @@ public class DataManagerModule {
         }
 
         return response.toString();
-    }
+    }*/
 
-    @Provides
+    /*@Provides
     @Named("localdata")
     public Interceptor provideLocalDataInterceptor() {
         Interceptor interceptor = new Interceptor() {
@@ -143,7 +132,7 @@ public class DataManagerModule {
             }
         };
         return BuildConfig.DEBUG ? interceptor : null;
-    }
+    }*/
 
     private String bodyToString(final RequestBody request) {
         try {
