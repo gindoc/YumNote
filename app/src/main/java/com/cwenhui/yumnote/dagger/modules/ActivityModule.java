@@ -10,6 +10,7 @@ import java.lang.ref.WeakReference;
 
 import dagger.Module;
 import dagger.Provides;
+import okhttp3.HttpUrl;
 
 /**
  * 作者: 陈文辉
@@ -33,8 +34,8 @@ public class ActivityModule {
         return mActivity.get().getSupportFragmentManager();
     }
 
-    @Provides
-    public SampleRepository providesSampleRepository(SampleDataRepository repository) {
-        return repository;
-    }
+    /*@Provides
+    public HttpUrl providesApiUrl(*//*Resources resources*//*) {
+        return HttpUrl.parse(*//*resources.getString(R.string.api)*//*"http://www.baidu.com");
+    }*/
 }

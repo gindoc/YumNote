@@ -5,6 +5,8 @@ import android.content.Context;
 import com.cwenhui.yumnote.base.BaseApplication;
 import com.cwenhui.yumnote.dagger.modules.ActivityModule;
 import com.cwenhui.yumnote.dagger.modules.ApplicationModule;
+import com.cwenhui.yumnote.dagger.modules.DataManagerModule;
+import com.cwenhui.yumnote.dagger.modules.RepositoryModule;
 
 import javax.inject.Singleton;
 
@@ -16,7 +18,7 @@ import dagger.Component;
  * 作用:
  */
 @Singleton
-@Component(modules = {ApplicationModule.class/*,DataManagerModule.class*/})
+@Component(modules = {ApplicationModule.class, DataManagerModule.class, RepositoryModule.class})
 public interface ApplicationComponent {
 
     void inject(BaseApplication application);

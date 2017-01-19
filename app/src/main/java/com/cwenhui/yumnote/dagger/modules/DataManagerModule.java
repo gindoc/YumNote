@@ -1,12 +1,16 @@
-package com.cwenhui.data.dagger;
+package com.cwenhui.yumnote.dagger.modules;
 
+import android.content.Context;
+import android.content.res.AssetManager;
 import android.content.res.Resources;
 
-import com.cwenhui.data.BuildConfig;
-import com.cwenhui.data.R;
-import com.cwenhui.data.service.Api;
+import com.cwenhui.yumnote.BuildConfig;
+import com.cwenhui.yumnote.R;
+import com.cwenhui.yumnote.utils.ComponentHolder;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 import javax.inject.Named;
 
@@ -14,37 +18,38 @@ import dagger.Module;
 import dagger.Provides;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
+import okhttp3.Protocol;
+import okhttp3.Request;
 import okhttp3.RequestBody;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import okio.Buffer;
 import retrofit2.Converter;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import timber.log.Timber;
 
 
 /**
  * Created by louiszgm-pc on 2016/9/22.
  */
 @Module
-public class DataModule {
-//    private Application mApp;
-
-    public DataModule(/*Application app*/) {
-//        mApp = app;
-    }
-
-//    @Provides
-//    public Context provideContext() {
-//        return mApp;
-//    }
+public class DataManagerModule {
 
     @Provides
     @Named("api_url")
     HttpUrl providesApiUrl(Resources resources) {
         return HttpUrl.parse(resources.getString(R.string.api));
     }
+
+//    @Provides
+//    Converter.Factory providesLoganSquareConverter() {
+//        return LoganSquareConverterFactory.create();
+//    }
 
     @Provides
     @Named("httpLogger")
@@ -57,10 +62,10 @@ public class DataModule {
     }
 
 
-    /*private String createResponseBody(Interceptor.Chain chain) {
+    private String createResponseBody(Interceptor.Chain chain) {
         HttpUrl uri = chain.request().url();
         String path = uri.url().getPath();
-        String query = uri.url().getQuery();
+//        String query = uri.url().getQuery();
         StringBuffer response = new StringBuffer();
         BufferedReader reader;
         AssetManager assetManager = ComponentHolder.getAppComponent().getContext().getAssets();
@@ -72,13 +77,17 @@ public class DataModule {
                 fileName = "RecommendPriceCats.json";
             } else if (path.matches("^(/recommendAreaCats)")) {
                 fileName = "RecomendAreaCats.json";
-            } else if (path.matches("^(/factorypoi/[1-9]\\d*)")) {
+            }else if (path.matches("^(/factorypoi/[1-9]\\d*)")) {
                 fileName = "FactoryPois.json";
-            } else if (path.matches("^(/cities)")) {
+            } else if (path.matches("^(/cities)")){
                 fileName = "Cities.json";
-            } else if (path.matches("^(/areas)")) {
+            } else if (path.matches("^(/areas)")){
                 fileName = "Areas.json";
-            } else {
+            } else if (path.matches("^(/highqualityfactory)")) {
+                fileName = "HighQualityFactory.json";
+            }else if (path.matches("^(/branches)")){
+                fileName = "Branches.json";
+            }else{
                 fileName = "SlideUrl.json";
             }
             reader = new BufferedReader(new InputStreamReader(assetManager.open(fileName)));
@@ -91,9 +100,9 @@ public class DataModule {
         }
 
         return response.toString();
-    }*/
+    }
 
-    /*@Provides
+    @Provides
     @Named("localdata")
     public Interceptor provideLocalDataInterceptor() {
         Interceptor interceptor = new Interceptor() {
@@ -104,7 +113,16 @@ public class DataModule {
                 Request realRequest = null;
                 Timber.d("requestBody : %s", bodyToString(request.body()));
                 Response intercepterResponse = null;
-                if (request.url().toString().contains("users")
+                /*if (request.url().toString().equals("https://api.sms.jpush.cn/v1/codes")) {
+                    String s = "2f0bf84aec9e72e58d647ea2:4930a1ae980aaebb491d152b";
+                    byte[] b = s.getBytes();
+                    String base64_auth_string = Base64.encodeToString(b, Base64.NO_WRAP);
+                    realRequest = request.newBuilder().addHeader("Authorization", "Basic " + base64_auth_string).build();
+                    Headers headers = realRequest.headers();
+                    for (int i = 0; i < headers.size(); i++) {
+                        Timber.e(headers.get("Authorization"));
+                    }
+                } else */if (request.url().toString().contains("users")
                         || request.url().toString().contains("user")
                         || request.url().toString().contains("qiniutokens")
                         || request.url().toString().contains("images")
@@ -132,7 +150,7 @@ public class DataModule {
             }
         };
         return BuildConfig.DEBUG ? interceptor : null;
-    }*/
+    }
 
     private String bodyToString(final RequestBody request) {
         try {
@@ -173,9 +191,17 @@ public class DataModule {
                 .build();
     }
 
-    @Provides
-    public Api providesApi(Retrofit retrofit) {
-        return retrofit.create(Api.class);
-    }
+//    @Provides
+//    public FactoryApi providesApi(Retrofit retrofit) {
+//        return retrofit.create(FactoryApi.class);
+//    }
 
+//    @Provides
+//    public DBManager provideDBManager(Context context) {
+//        return new DBManager(context);
+//    }
+//    @Provides
+//    public LocalApi provideLocalApi(DBManager dbManager) {
+//        return new LocalApi(dbManager);
+//    }
 }

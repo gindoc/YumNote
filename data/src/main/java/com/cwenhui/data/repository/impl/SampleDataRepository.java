@@ -17,18 +17,14 @@ import timber.log.Timber;
 
 public class SampleDataRepository extends BaseRepository implements SampleRepository {
 
-//    @Inject
-//    public SampleDataRepository() {
-//    }
+    @Inject
+    @Named("api_url")
+    HttpUrl url;
 
     @Inject
     public SampleDataRepository() {
         super();
-        dataComponent.inject(this);
     }
-
-    @Named("api_url")
-    HttpUrl url;
 
     @Override
     public void test() {

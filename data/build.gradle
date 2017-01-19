@@ -45,4 +45,5 @@ dependencies {
     //timber
     compile "com.jakewharton.timber:timber:$rootProject.timberVersion"
     compile project(path: ':domain')
+    compile project(path: ':domain')
 }
