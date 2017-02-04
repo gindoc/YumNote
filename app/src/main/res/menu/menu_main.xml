@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/synchronize"
+        android:icon="@drawable/ic_reflesh"
+        android:title="同步"
+        android:orderInCategory="101"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/search"
+        android:icon="@drawable/ic_search"
+        android:title="搜索"
+        android:orderInCategory="102"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/order"
+        android:orderInCategory="103"
+        app:showAsAction="ifRoom"
+        android:title="排序"/>
+    <item
+        android:id="@+id/options"
+        android:orderInCategory="104"
+        app:showAsAction="ifRoom"
+        android:title="查看选项"/>
+</menu>

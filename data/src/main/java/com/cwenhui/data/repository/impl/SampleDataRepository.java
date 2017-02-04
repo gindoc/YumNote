@@ -23,7 +23,6 @@ public class SampleDataRepository extends BaseRepository implements SampleReposi
 
     @Inject
     public SampleDataRepository() {
-        super();
     }
 
     @Override

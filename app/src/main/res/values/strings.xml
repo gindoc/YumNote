@@ -5,4 +5,7 @@
     <string name="permission_deny_again_title">权限设置</string>
     <string name="permission_deny_again_positive">设置</string>
     <string name="permission_deny_again_nagative">取消</string>
+
+
+    <string name="header_height">12%h</string>
 </resources>
