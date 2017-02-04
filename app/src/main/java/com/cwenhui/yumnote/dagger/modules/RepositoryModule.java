@@ -1,6 +1,8 @@
 package com.cwenhui.yumnote.dagger.modules;
 
+import com.cwenhui.data.repository.impl.NoteBookDataRepository;
 import com.cwenhui.data.repository.impl.SampleDataRepository;
+import com.cwenhui.domain.repository.NoteBookRepository;
 import com.cwenhui.domain.repository.SampleRepository;
 
 import dagger.Module;
@@ -16,6 +18,11 @@ public class RepositoryModule {
 
     @Provides
     public SampleRepository providesSampleRepository(SampleDataRepository repository) {
+        return repository;
+    }
+
+    @Provides
+    public NoteBookRepository providesNoteBookRepository(NoteBookDataRepository repository) {
         return repository;
     }
 }

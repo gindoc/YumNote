@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 
+import com.cwenhui.data.service.Api;
 import com.cwenhui.yumnote.BuildConfig;
 import com.cwenhui.yumnote.R;
 import com.cwenhui.yumnote.utils.ComponentHolder;
@@ -65,28 +66,13 @@ public class DataManagerModule {
     private String createResponseBody(Interceptor.Chain chain) {
         HttpUrl uri = chain.request().url();
         String path = uri.url().getPath();
-//        String query = uri.url().getQuery();
         StringBuffer response = new StringBuffer();
         BufferedReader reader;
         AssetManager assetManager = ComponentHolder.getAppComponent().getContext().getAssets();
         try {
             String fileName;
-            if (path.matches("^(/scrollMsgs)$")) {      //匹配/scrollMsgs
-                fileName = "ScrollMsgs.json";
-            } else if (path.matches("^(/recommendPriceCats)")) {
-                fileName = "RecommendPriceCats.json";
-            } else if (path.matches("^(/recommendAreaCats)")) {
-                fileName = "RecomendAreaCats.json";
-            }else if (path.matches("^(/factorypoi/[1-9]\\d*)")) {
-                fileName = "FactoryPois.json";
-            } else if (path.matches("^(/cities)")){
-                fileName = "Cities.json";
-            } else if (path.matches("^(/areas)")){
-                fileName = "Areas.json";
-            } else if (path.matches("^(/highqualityfactory)")) {
-                fileName = "HighQualityFactory.json";
-            }else if (path.matches("^(/branches)")){
-                fileName = "Branches.json";
+            if (path.matches("^(/noteBooks)")){
+                fileName = "NoteBooks.json";
             }else{
                 fileName = "SlideUrl.json";
             }
@@ -113,26 +99,7 @@ public class DataManagerModule {
                 Request realRequest = null;
                 Timber.d("requestBody : %s", bodyToString(request.body()));
                 Response intercepterResponse = null;
-                /*if (request.url().toString().equals("https://api.sms.jpush.cn/v1/codes")) {
-                    String s = "2f0bf84aec9e72e58d647ea2:4930a1ae980aaebb491d152b";
-                    byte[] b = s.getBytes();
-                    String base64_auth_string = Base64.encodeToString(b, Base64.NO_WRAP);
-                    realRequest = request.newBuilder().addHeader("Authorization", "Basic " + base64_auth_string).build();
-                    Headers headers = realRequest.headers();
-                    for (int i = 0; i < headers.size(); i++) {
-                        Timber.e(headers.get("Authorization"));
-                    }
-                } else */if (request.url().toString().contains("users")
-                        || request.url().toString().contains("user")
-                        || request.url().toString().contains("qiniutokens")
-                        || request.url().toString().contains("images")
-                        || request.url().toString().contains("wantedmessages")
-                        || request.url().toString().contains("factorypois/district/")
-                        || request.url().toString().contains("smses")
-                        || request.url().toString().contains("promediums")
-                        || request.url().toString().contains("search")
-                        || request.url().toString().contains("promediummessages")
-                        || request.url().toString().contains("feedbacks")) {
+                if (request.url().toString().contains("users")) {
                     realRequest = request.newBuilder().build();
                 } else {
                     intercepterResponse = new Response.Builder()
@@ -145,7 +112,6 @@ public class DataManagerModule {
                             .addHeader("content-type", "application/json")
                             .build();
                 }
-
                 return intercepterResponse == null ? chain.proceed(realRequest) : intercepterResponse;
             }
         };
@@ -191,10 +157,10 @@ public class DataManagerModule {
                 .build();
     }
 
-//    @Provides
-//    public FactoryApi providesApi(Retrofit retrofit) {
-//        return retrofit.create(FactoryApi.class);
-//    }
+    @Provides
+    public Api providesApi(Retrofit retrofit) {
+        return retrofit.create(Api.class);
+    }
 
 //    @Provides
 //    public DBManager provideDBManager(Context context) {

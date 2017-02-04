@@ -36,6 +36,8 @@ public class MainActivity extends BaseActivity<MainContract.View, MainPresenter>
         initToolBar();
         setupNavigation();
         processStatusBar(mBinding.contentMain.toolbar, true, false);
+
+        mPresenter.requestNoteBooks();
     }
 
     private void setupNavigation() {
