@@ -146,12 +146,12 @@ public class DataManagerModule {
     }
 
     @Provides
-    public Retrofit providesRetrofit(Converter.Factory converterFactory, @Named("api_url") HttpUrl url,
+    public Retrofit providesRetrofit(/*Converter.Factory converterFactory, */@Named("api_url") HttpUrl url,
                                      OkHttpClient client) {
         return new Retrofit.Builder()
                 .baseUrl(url)
                 .client(client)
-                .addConverterFactory(converterFactory)
+//                .addConverterFactory(converterFactory)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();

@@ -1,6 +1,9 @@
 package com.cwenhui.data.service;
 
-import com.cwenhui.domain.response.Response;
+import com.cwenhui.domain.model.NoteBook;
+import com.cwenhui.domain.model.response.Response;
+
+import java.util.List;
 
 import retrofit2.http.GET;
 import rx.Observable;
@@ -12,5 +15,5 @@ import rx.Observable;
  */
 public interface Api {
     @GET("noteBooks")
-    Observable<Response> requestNoteBooks();
+    Observable<Response<List<NoteBook>>> requestNoteBooks();
 }

@@ -1,7 +1,10 @@
 package com.cwenhui.domain.usecase;
 
+import com.cwenhui.domain.model.NoteBook;
+import com.cwenhui.domain.model.response.Response;
 import com.cwenhui.domain.repository.NoteBookRepository;
-import com.cwenhui.domain.response.Response;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -21,7 +24,7 @@ public class NoteBooksCase {
         this.noteBookRepository = noteBookRepository;
     }
 
-    public Observable<Response> requestNoteBooks() {
+    public Observable<Response<List<NoteBook>>> requestNoteBooks() {
         return noteBookRepository.requestNoteBooks();
     }
 }

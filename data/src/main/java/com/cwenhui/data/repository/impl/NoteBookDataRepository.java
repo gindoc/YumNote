@@ -1,9 +1,12 @@
 package com.cwenhui.data.repository.impl;
 
 import com.cwenhui.data.BaseRepository;
-import com.cwenhui.domain.response.Response;
+import com.cwenhui.domain.model.NoteBook;
+import com.cwenhui.domain.model.response.Response;
 import com.cwenhui.data.service.Api;
 import com.cwenhui.domain.repository.NoteBookRepository;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -16,12 +19,14 @@ import rx.Observable;
  */
 public class NoteBookDataRepository extends BaseRepository implements NoteBookRepository {
     private Api api;
+
     @Inject
-    public NoteBookDataRepository() {
+    public NoteBookDataRepository(Api api) {
+        this.api = api;
     }
 
     @Override
-    public Observable<Response> requestNoteBooks() {
+    public Observable<Response<List<NoteBook>>> requestNoteBooks() {
         return api.requestNoteBooks();
     }
 }

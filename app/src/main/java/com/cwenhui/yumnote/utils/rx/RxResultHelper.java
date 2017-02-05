@@ -1,6 +1,6 @@
 package com.cwenhui.yumnote.utils.rx;
 
-import com.cwenhui.domain.response.Response;
+import com.cwenhui.domain.model.response.Response;
 
 import rx.Observable;
 import rx.Subscriber;

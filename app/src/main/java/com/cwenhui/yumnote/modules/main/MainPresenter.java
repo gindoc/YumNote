@@ -1,11 +1,14 @@
 package com.cwenhui.yumnote.modules.main;
 
-import com.cwenhui.domain.response.Response;
+import com.cwenhui.domain.model.NoteBook;
+import com.cwenhui.domain.model.response.Response;
 import com.cwenhui.domain.usecase.NoteBooksCase;
 import com.cwenhui.domain.usecase.TestCase;
 import com.cwenhui.yumnote.base.BasePresenter;
 import com.cwenhui.yumnote.utils.rx.RxResultHelper;
 import com.cwenhui.yumnote.utils.rx.RxSubscriber;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -37,14 +40,15 @@ public class MainPresenter extends BasePresenter<MainContract.View> implements M
 
     public void requestNoteBooks() {
         noteBooksCase.requestNoteBooks()
-                .compose(getView().<Response>getBindToLifecycle())
-                .compose(RxResultHelper.<Response>handleResult())
+                .compose(getView().<Response<List<NoteBook>>>getBindToLifecycle())
+                .compose(RxResultHelper.<Response<List<NoteBook>>>handleResult())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new RxSubscriber<Response>() {
+                .subscribe(new RxSubscriber<Response<List<NoteBook>>>() {
                     @Override
-                    public void _onNext(Response response) {
+                    public void _onNext(Response<List<NoteBook>> response) {
                         Timber.e(response.getErro_msg());
+                        getView().loadNoteBookList(response.getData());
                     }
 
                     @Override

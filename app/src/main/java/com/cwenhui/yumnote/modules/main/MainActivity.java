@@ -13,10 +13,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.cwenhui.domain.model.NoteBook;
 import com.cwenhui.yumnote.R;
 import com.cwenhui.yumnote.base.BaseActivity;
 import com.cwenhui.yumnote.databinding.ActivityMainBinding;
+import com.cwenhui.yumnote.widgets.recyclerview.SingleTypeAdapter;
 import com.trello.rxlifecycle.LifecycleTransformer;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -26,6 +30,7 @@ public class MainActivity extends BaseActivity<MainContract.View, MainPresenter>
     @Inject
     MainPresenter mPresenter;
     private ActivityMainBinding mBinding;
+    private SingleTypeAdapter<MainViewModel> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +41,9 @@ public class MainActivity extends BaseActivity<MainContract.View, MainPresenter>
         initToolBar();
         setupNavigation();
         processStatusBar(mBinding.contentMain.toolbar, true, false);
+
+        adapter = new SingleTypeAdapter(this, R.layout.item_activity_main);
+        mBinding.contentMain.recyclerView.setAdapter(adapter);
 
         mPresenter.requestNoteBooks();
     }
@@ -73,7 +81,7 @@ public class MainActivity extends BaseActivity<MainContract.View, MainPresenter>
 
     @Override
     public <T> LifecycleTransformer<T> getBindToLifecycle() {
-        return null;
+        return bindToLifecycle();
     }
 
     @Override
@@ -99,5 +107,10 @@ public class MainActivity extends BaseActivity<MainContract.View, MainPresenter>
 
     public static Intent getStartIntent(Context context) {
         return new Intent(context, MainActivity.class);
+    }
+
+    @Override
+    public void loadNoteBookList(List<NoteBook> data) {
+//        adapter.addAll(data);
     }
 }
