@@ -31,6 +31,7 @@ public class SingleTypeAdapter<T> extends BaseViewAdapter<T> {
         mLayoutRes = layoutRes;
     }
 
+
     @SuppressWarnings("unchecked")
     @Override
     public BindingViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

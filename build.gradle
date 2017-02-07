@@ -42,6 +42,7 @@ ext {
 //    logansquareVersion = '1.3.6'
     glideVersion = '3.7.0'
     timberVersion = '4.3.1'
+    gsonVersion = '2.8.0'
 
     //for test
     junitVersion = '4.12'

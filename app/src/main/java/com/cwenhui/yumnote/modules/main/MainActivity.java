@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,9 +18,11 @@ import com.cwenhui.domain.model.NoteBook;
 import com.cwenhui.yumnote.R;
 import com.cwenhui.yumnote.base.BaseActivity;
 import com.cwenhui.yumnote.databinding.ActivityMainBinding;
+import com.cwenhui.yumnote.widgets.recyclerview.DividerItemDecoration;
 import com.cwenhui.yumnote.widgets.recyclerview.SingleTypeAdapter;
 import com.trello.rxlifecycle.LifecycleTransformer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -30,7 +33,8 @@ public class MainActivity extends BaseActivity<MainContract.View, MainPresenter>
     @Inject
     MainPresenter mPresenter;
     private ActivityMainBinding mBinding;
-    private SingleTypeAdapter<MainViewModel> adapter;
+
+    SingleTypeAdapter<NoteBook> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +46,10 @@ public class MainActivity extends BaseActivity<MainContract.View, MainPresenter>
         setupNavigation();
         processStatusBar(mBinding.contentMain.toolbar, true, false);
 
-        adapter = new SingleTypeAdapter(this, R.layout.item_activity_main);
+        adapter = new SingleTypeAdapter<NoteBook>(this, R.layout.item_activity_main);
+        mBinding.contentMain.recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mBinding.contentMain.recyclerView.setAdapter(adapter);
+        mBinding.contentMain.recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
 
         mPresenter.requestNoteBooks();
     }
@@ -86,7 +92,6 @@ public class MainActivity extends BaseActivity<MainContract.View, MainPresenter>
 
     @Override
     public void showError(String error) {
-
     }
 
     @Override
@@ -111,6 +116,6 @@ public class MainActivity extends BaseActivity<MainContract.View, MainPresenter>
 
     @Override
     public void loadNoteBookList(List<NoteBook> data) {
-//        adapter.addAll(data);
+        adapter.addAll(data);
     }
 }

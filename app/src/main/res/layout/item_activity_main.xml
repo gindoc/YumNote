@@ -1,24 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tool="http://schemas.android.com/tools">
 
     <data>
 
         <variable
             name="item"
-            type="com.cwenhui.yumnote.modules.main.MainViewModel" />
+            type="com.cwenhui.domain.model.NoteBook" />
+
+        <import type="android.view.View" />
     </data>
-    <LinearLayout
+
+    <com.zhy.android.percent.support.PercentFrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <TextView
-            android:layout_width="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tool:text="笔记本名"
-            android:textSize="16sp"
-            android:textColor="#424242"
-            android:layout_margin="10dp"
-            android:text="@{()->item.noteBook.name}"/>
-    </LinearLayout>
+            android:layout_gravity="center_vertical"
+            app:layout_paddingPercent="3%w"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@{item.name}"
+                android:textColor="#424242"
+                android:textSize="16sp"
+                tool:text="笔记本名" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_arrow_down_black"
+                android:visibility='@{item.subNoteBooks==null||item.subNoteBooks.size()==0?View.GONE:View.VISIBLE}' />
+        </LinearLayout>
+
+    </com.zhy.android.percent.support.PercentFrameLayout>
 </layout>
