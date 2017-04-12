@@ -8,4 +8,7 @@
 
 
     <string name="header_height">12%h</string>
+
+    <string name="activity_label">Example</string>
+    <string name="action_settings">Settings</string>
 </resources>

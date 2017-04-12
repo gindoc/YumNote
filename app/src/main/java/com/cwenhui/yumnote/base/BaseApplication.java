@@ -8,6 +8,7 @@ import com.cwenhui.yumnote.dagger.components.ApplicationComponent;
 import com.cwenhui.yumnote.dagger.components.DaggerApplicationComponent;
 import com.cwenhui.yumnote.dagger.modules.ApplicationModule;
 import com.cwenhui.yumnote.utils.ComponentHolder;
+import com.cwenhui.yumnote.utils.Saver;
 import com.squareup.leakcanary.LeakCanary;
 
 import timber.log.Timber;
@@ -33,7 +34,7 @@ public class BaseApplication extends Application {
             return;
         }
 //        enabledStrictMode();
-//        Saver.initSaver(this);
+        Saver.initSaver(this);
 
         getApplicationComponent().inject(this);
 

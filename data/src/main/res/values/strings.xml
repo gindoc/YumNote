@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">data</string>
-    <string name="api">http://www.baidu.com</string>
+    <string name="api">http://192.168.1.103:8080/yumnote/api/</string>
+    <!--<string name="api">192.168.1.103</string>-->
 </resources>

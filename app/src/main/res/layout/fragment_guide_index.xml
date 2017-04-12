@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="view"
+            type="com.cwenhui.yumnote.modules.guide.index.IndexFragment"/>
+    </data>
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/guide_bg"
+        android:orientation="vertical">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            app:layout_heightPercent="70%h"
+            app:layout_widthPercent="90%w"/>
+
+        <LinearLayout
+            android:id="@+id/ll_dots"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/viewPager"
+            android:layout_centerHorizontal="true"
+            android:orientation="horizontal"
+            app:layout_marginTopPercent="3%h"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@android:color/white"
+            android:text="注册"
+            android:textColor="#484848"
+            app:layout_marginBottomPercent="10%h"
+            android:onClick="@{view.toRegister}"
+            app:layout_marginLeftPercent="10%w"
+            app:layout_textSizePercent="5%w"
+            app:layout_widthPercent="35%w"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:background="#199CEA"
+            android:text="登录"
+            android:textColor="#fff"
+            app:layout_marginBottomPercent="10%h"
+            android:onClick="@{view.toLogin}"
+            app:layout_marginRightPercent="10%w"
+            app:layout_textSizePercent="5%w"
+            app:layout_widthPercent="35%w"/>
+
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+</layout>

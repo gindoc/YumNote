@@ -1,8 +1,10 @@
 package com.cwenhui.yumnote.dagger.components;
 
+import com.cwenhui.yumnote.modules.guide.GuideActivity;
 import com.cwenhui.yumnote.modules.main.MainActivity;
 import com.cwenhui.yumnote.dagger.modules.ActivityModule;
 import com.cwenhui.yumnote.dagger.modules.FragmentModule;
+import com.cwenhui.yumnote.modules.welcome.WelcomeActivity;
 
 import dagger.Subcomponent;
 
@@ -19,4 +21,7 @@ public interface ActivityComponent {
     FragmentComponent plus(FragmentModule module);
 
 
+    void inject(GuideActivity guideActivity);
+
+    void inject(WelcomeActivity welcomeActivity);
 }

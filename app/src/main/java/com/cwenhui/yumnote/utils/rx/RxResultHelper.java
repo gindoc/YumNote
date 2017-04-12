@@ -37,7 +37,11 @@ public class RxResultHelper {
         //如果errcode不等于200,则返回的是服务器错误信息
         if (response.getErro_code() != 200) {
             Timber.d("errcode不为200");
-            return Observable.error(/*new ServerException(response.getErro_msg())*/new Throwable(response.getErro_msg()));
+            StringBuffer sb = new StringBuffer(response.getErro_code());
+            sb.append(" : ");
+            sb.append(response.getErro_msg());
+            return Observable.error(/*new ServerException(response.getErro_msg())*/
+                    new Throwable(sb.toString()));
         } else {
             return (Observable<T>) createData(response);
         }

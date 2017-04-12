@@ -1,10 +1,9 @@
 package com.cwenhui.yumnote.dagger.modules;
 
-import android.content.Context;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 
-import com.cwenhui.data.service.Api;
+import com.cwenhui.data.remote.service.Api;
 import com.cwenhui.yumnote.BuildConfig;
 import com.cwenhui.yumnote.R;
 import com.cwenhui.yumnote.utils.ComponentHolder;
@@ -28,7 +27,6 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import okio.Buffer;
-import retrofit2.Converter;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -99,7 +97,7 @@ public class DataManagerModule {
                 Request realRequest = null;
                 Timber.d("requestBody : %s", bodyToString(request.body()));
                 Response intercepterResponse = null;
-                if (request.url().toString().contains("users")) {
+                if (request.url().toString().contains("user")) {
                     realRequest = request.newBuilder().build();
                 } else {
                     intercepterResponse = new Response.Builder()

@@ -2,15 +2,12 @@ package com.cwenhui.yumnote.dagger.modules;
 
 import android.support.v4.app.FragmentManager;
 
-import com.cwenhui.data.repository.impl.SampleDataRepository;
-import com.cwenhui.domain.repository.SampleRepository;
 import com.cwenhui.yumnote.base.BaseActivity;
 
 import java.lang.ref.WeakReference;
 
 import dagger.Module;
 import dagger.Provides;
-import okhttp3.HttpUrl;
 
 /**
  * 作者: 陈文辉

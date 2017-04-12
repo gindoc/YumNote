@@ -1,4 +1,4 @@
-package com.cwenhui.data.repository.impl;
+package com.cwenhui.data.remote.repository.impl;
 
 import com.cwenhui.data.BaseRepository;
 import com.cwenhui.domain.repository.SampleRepository;

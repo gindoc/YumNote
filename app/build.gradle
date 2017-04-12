@@ -56,7 +56,7 @@ dependencies {
 
     compile "com.jakewharton.timber:timber:$rootProject.timberVersion"
 
-    compile 'me.yokeyword:fragmentation:0.7.12'
+    compile 'me.yokeyword:fragmentation:0.10.3'
 
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'

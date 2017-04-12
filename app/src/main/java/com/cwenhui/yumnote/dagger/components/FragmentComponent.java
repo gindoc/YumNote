@@ -1,6 +1,9 @@
 package com.cwenhui.yumnote.dagger.components;
 
 import com.cwenhui.yumnote.dagger.modules.FragmentModule;
+import com.cwenhui.yumnote.modules.guide.index.IndexFragment;
+import com.cwenhui.yumnote.modules.guide.login.LoginFragment;
+import com.cwenhui.yumnote.modules.guide.regist.RegisterFragment;
 
 import dagger.Subcomponent;
 
@@ -11,4 +14,9 @@ import dagger.Subcomponent;
  */
 @Subcomponent(modules = FragmentModule.class)
 public interface FragmentComponent {
+    void inject(IndexFragment indexFragment);
+
+    void inject(LoginFragment loginFragment);
+
+    void inject(RegisterFragment registerFragment);
 }
