@@ -1,19 +1,21 @@
 package com.cwenhui.yumnote.modules.welcome;
 
+import android.databinding.DataBindingUtil;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.cwenhui.data.local.Const;
 import com.cwenhui.domain.model.User;
 import com.cwenhui.yumnote.R;
 import com.cwenhui.yumnote.base.BaseActivity;
+import com.cwenhui.yumnote.databinding.ActivityWelcomeBinding;
 import com.cwenhui.yumnote.modules.guide.GuideActivity;
 import com.cwenhui.yumnote.modules.main.MainActivity;
 import com.cwenhui.yumnote.utils.NetworkUtils;
 import com.cwenhui.yumnote.utils.Saver;
+import com.cwenhui.yumnote.utils.ToastUtil;
 import com.trello.rxlifecycle.LifecycleTransformer;
 
 import javax.inject.Inject;
@@ -30,17 +32,15 @@ public class WelcomeActivity extends BaseActivity<WelcomeContract.View, WelcomeP
     WelcomePresenter mPresenter;
     private long currentTime;
     private Handler handler = new Handler();
+    private ActivityWelcomeBinding mBinding;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         getComponent().inject(this);
         super.onCreate(savedInstanceState);
-        ImageView imageView = new ImageView(this);
-        imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup
-                .LayoutParams.MATCH_PARENT));
-        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-        imageView.setImageResource(R.drawable.welcome);
-        setContentView(imageView);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_welcome);
+        mBinding.loadingView.setColorBg(Color.WHITE).setColorFg(Color.BLACK);
+        mBinding.loadingView.setAnimTime(1000).setAnimInfinite(false).startAnim();
 
         if (!NetworkUtils.isAvailable(this) || !NetworkUtils.isConnected(this))
             return;
@@ -49,17 +49,21 @@ public class WelcomeActivity extends BaseActivity<WelcomeContract.View, WelcomeP
             currentTime = System.currentTimeMillis();
             mPresenter.login(user.getUserName(), user.getUserPassword());
         } else {                // 未登录的话跳转登录页面
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    startActivity(GuideActivity.getStartIntent(WelcomeActivity.this));
-                    finish();
-                }
-            }, 1000);
+            toGuideActivity(1000);
         }
     }
 
     private void toGuideActivity(long delayedTime) {
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                startActivity(GuideActivity.getStartIntent(WelcomeActivity.this));
+                finish();
+            }
+        }, delayedTime);
+    }
+
+    private void toMainActivity(long delayedTime) {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -76,6 +80,16 @@ public class WelcomeActivity extends BaseActivity<WelcomeContract.View, WelcomeP
 
     @Override
     public void loginSuccessful() {
+        if (System.currentTimeMillis() - currentTime > 1000) {
+            toMainActivity(0);
+        } else {
+            toMainActivity(1000 - System.currentTimeMillis() + currentTime);
+        }
+    }
+
+    @Override
+    public void loginFailed() {
+        ToastUtil.show(this, "服务器异常，登录失败");
         if (System.currentTimeMillis() - currentTime > 1000) {
             toGuideActivity(0);
         } else {

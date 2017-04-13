@@ -15,5 +15,5 @@ import rx.Observable;
  */
 
 public interface NoteBookRepository {
-    Observable<Response<List<NoteBook>>> requestNoteBooks();
+    Observable<Response<List<NoteBook>>> requestNoteBooks(String token);
 }

@@ -35,8 +35,6 @@ public class MainActivity extends BaseActivity<MainContract.View, MainPresenter>
     private ActivityMainBinding mBinding;
     private SectionedExpandableLayoutHelper sectionedExpandableLayoutHelper;
 
-    //    SingleTypeAdapter<NoteBook> adapter;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         getComponent().inject(this);

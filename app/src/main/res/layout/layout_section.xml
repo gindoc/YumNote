@@ -35,4 +35,10 @@
             android:textOn=""/>
 
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_gravity="bottom"
+        android:background="#808080"/>
 </com.zhy.android.percent.support.PercentFrameLayout>

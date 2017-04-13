@@ -13,6 +13,8 @@ public interface WelcomeContract {
     interface View extends IBaseView{
 
         void loginSuccessful();
+
+        void loginFailed();
     }
 
     interface Presenter extends IBasePresenter {

@@ -48,6 +48,7 @@ public class WelcomePresenter extends BasePresenter<WelcomeContract.View> implem
                     @Override
                     public void _onError(Throwable throwable) {
                         Timber.e(throwable.getMessage());
+                        getView().loginFailed();
                     }
                 });
     }

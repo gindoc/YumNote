@@ -24,7 +24,7 @@ public class NoteBooksCase {
         this.noteBookRepository = noteBookRepository;
     }
 
-    public Observable<Response<List<NoteBook>>> requestNoteBooks() {
-        return noteBookRepository.requestNoteBooks();
+    public Observable<Response<List<NoteBook>>> requestNoteBooks(String token) {
+        return noteBookRepository.requestNoteBooks(token);
     }
 }

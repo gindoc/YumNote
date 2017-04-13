@@ -11,35 +11,38 @@ import java.util.List;
  */
 
 public class NoteBook {
-    private String id;
-    private String name;
-    private String modify_time;
+    private int notebookId;
+    private String notebookName;
+    @SerializedName("notebookModifytime")
+    private long notebookModifyTime;
+    @SerializedName("notebookCreatetime")
+    private long notebookCreateTime;
 
-    @SerializedName(value="subNoteBooks", alternate = {"sub_note_books"})
+    @SerializedName(value = "subNoteBooks", alternate = {"sub_note_books"})
     private List<NoteBook> subNoteBooks;
 
-    public String getId() {
-        return id;
+    public int getId() {
+        return notebookId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setId(int id) {
+        this.notebookId = id;
     }
 
     public String getName() {
-        return name;
+        return notebookName;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.notebookName = name;
     }
 
-    public String getModify_time() {
-        return modify_time;
+    public long getModify_time() {
+        return notebookModifyTime;
     }
 
-    public void setModify_time(String modify_time) {
-        this.modify_time = modify_time;
+    public void setModify_time(long modify_time) {
+        this.notebookModifyTime = modify_time;
     }
 
     public List<NoteBook> getSubNoteBooks() {
@@ -48,5 +51,13 @@ public class NoteBook {
 
     public void setSubNoteBooks(List<NoteBook> subNoteBooks) {
         this.subNoteBooks = subNoteBooks;
+    }
+
+    public long getNotebookCreateTime() {
+        return notebookCreateTime;
+    }
+
+    public void setNotebookCreateTime(long notebookCreateTime) {
+        this.notebookCreateTime = notebookCreateTime;
     }
 }

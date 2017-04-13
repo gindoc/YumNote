@@ -5,6 +5,7 @@ import com.cwenhui.domain.model.response.Response;
 import com.cwenhui.domain.usecase.NoteBooksCase;
 import com.cwenhui.domain.usecase.TestCase;
 import com.cwenhui.yumnote.base.BasePresenter;
+import com.cwenhui.yumnote.utils.Saver;
 import com.cwenhui.yumnote.utils.rx.RxResultHelper;
 import com.cwenhui.yumnote.utils.rx.RxSubscriber;
 
@@ -39,7 +40,7 @@ public class MainPresenter extends BasePresenter<MainContract.View> implements M
     }
 
     public void requestNoteBooks() {
-        noteBooksCase.requestNoteBooks()
+        noteBooksCase.requestNoteBooks(Saver.getToken())
                 .compose(getView().<Response<List<NoteBook>>>getBindToLifecycle())
                 .compose(RxResultHelper.<Response<List<NoteBook>>>handleResult())
                 .subscribeOn(Schedulers.io())
@@ -47,7 +48,6 @@ public class MainPresenter extends BasePresenter<MainContract.View> implements M
                 .subscribe(new RxSubscriber<Response<List<NoteBook>>>() {
                     @Override
                     public void _onNext(Response<List<NoteBook>> response) {
-                        Timber.e(response.getErro_msg());
                         getView().loadNoteBookList(response.getData());
                     }
 

@@ -9,6 +9,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 import rx.Observable;
 
 /**
@@ -17,8 +18,8 @@ import rx.Observable;
  * FOR   :
  */
 public interface Api {
-    @GET("noteBooks")
-    Observable<Response<List<NoteBook>>> requestNoteBooks();
+    @GET("notebooks")
+    Observable<Response<List<NoteBook>>> requestNoteBooks(@Query("token")String token);
 
     @FormUrlEncoded
     @POST("user")

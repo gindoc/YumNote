@@ -69,11 +69,11 @@ public class DataManagerModule {
         AssetManager assetManager = ComponentHolder.getAppComponent().getContext().getAssets();
         try {
             String fileName;
-            if (path.matches("^(/noteBooks)")){
-                fileName = "NoteBooks.json";
-            }else{
+//            if (path.matches("^(/noteBooks)")){
+//                fileName = "NoteBooks.json";
+//            }else{
                 fileName = "SlideUrl.json";
-            }
+//            }
             reader = new BufferedReader(new InputStreamReader(assetManager.open(fileName)));
             String line = "";
             while ((line = reader.readLine()) != null) {
@@ -97,7 +97,8 @@ public class DataManagerModule {
                 Request realRequest = null;
                 Timber.d("requestBody : %s", bodyToString(request.body()));
                 Response intercepterResponse = null;
-                if (request.url().toString().contains("user")) {
+                if (request.url().toString().contains("user")||
+                        request.url().toString().contains("notebooks")) {
                     realRequest = request.newBuilder().build();
                 } else {
                     intercepterResponse = new Response.Builder()
