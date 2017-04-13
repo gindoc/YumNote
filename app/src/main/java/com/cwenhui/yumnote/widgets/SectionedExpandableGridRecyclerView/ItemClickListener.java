@@ -8,4 +8,7 @@ import com.cwenhui.domain.model.NoteBook;
 public interface ItemClickListener {
     void itemClicked(NoteBook item);
     void itemClicked(Section section);
+
+    void itemLongClicked(Section section);
+    void itemLongClicked(NoteBook item);
 }

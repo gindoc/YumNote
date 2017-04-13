@@ -73,6 +73,13 @@ public class SectionedExpandableGridAdapter extends RecyclerView.Adapter<Section
                         mItemClickListener.itemClicked(item);
                     }
                 });
+                holder.view.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View view) {
+                        mItemClickListener.itemLongClicked(item);
+                        return true;
+                    }
+                });
                 break;
             case VIEW_TYPE_SECTION:
                 final Section section = (Section) mDataArrayList.get(position);
@@ -81,6 +88,13 @@ public class SectionedExpandableGridAdapter extends RecyclerView.Adapter<Section
                     @Override
                     public void onClick(View v) {
                         mItemClickListener.itemClicked(section);
+                    }
+                });
+                holder.sectionTextView.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View view) {
+                        mItemClickListener.itemLongClicked(section);
+                        return true;
                     }
                 });
                 holder.sectionToggleButton.setVisibility(section.isHasChildren() ? View.VISIBLE : View.GONE);

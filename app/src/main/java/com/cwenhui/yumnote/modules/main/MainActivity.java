@@ -17,6 +17,7 @@ import com.cwenhui.domain.model.NoteBook;
 import com.cwenhui.yumnote.R;
 import com.cwenhui.yumnote.base.BaseActivity;
 import com.cwenhui.yumnote.databinding.ActivityMainBinding;
+import com.cwenhui.yumnote.utils.ToastUtil;
 import com.cwenhui.yumnote.widgets.SectionedExpandableGridRecyclerView.ItemClickListener;
 import com.cwenhui.yumnote.widgets.SectionedExpandableGridRecyclerView.Section;
 import com.cwenhui.yumnote.widgets.SectionedExpandableGridRecyclerView.SectionedExpandableLayoutHelper;
@@ -114,14 +115,13 @@ public class MainActivity extends BaseActivity<MainContract.View, MainPresenter>
     public void loadNoteBookList(List<NoteBook> data) {
         for (NoteBook noteBook : data) {
             if (noteBook.getSubNoteBooks() != null && noteBook.getSubNoteBooks().size() > 0) {
-                sectionedExpandableLayoutHelper.addSection(noteBook.getName(),
+                sectionedExpandableLayoutHelper.addSection(noteBook,
                         (ArrayList<NoteBook>) noteBook.getSubNoteBooks());
             }else {
-                sectionedExpandableLayoutHelper.addSection(noteBook.getName(), null);
+                sectionedExpandableLayoutHelper.addSection(noteBook, null);
             }
         }
         sectionedExpandableLayoutHelper.notifyDataSetChanged();
-//        adapter.addAll(data);
     }
 
     @Override
@@ -131,6 +131,16 @@ public class MainActivity extends BaseActivity<MainContract.View, MainPresenter>
 
     @Override
     public void itemClicked(Section section) {
+        ToastUtil.show(this, section.getNoteBook().getName());
+    }
+
+    @Override
+    public void itemLongClicked(Section section) {
+        ToastUtil.show(this, section.getNoteBook().getName()+":"+section.getNoteBook().getId());
+    }
+
+    @Override
+    public void itemLongClicked(NoteBook item) {
 
     }
 }
