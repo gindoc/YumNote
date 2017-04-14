@@ -8,6 +8,7 @@ import com.cwenhui.yumnote.base.BasePresenter;
 import com.cwenhui.yumnote.utils.Saver;
 import com.cwenhui.yumnote.utils.rx.RxResultHelper;
 import com.cwenhui.yumnote.utils.rx.RxSubscriber;
+import com.cwenhui.yumnote.widgets.SectionedExpandableGridRecyclerView.Section;
 
 import java.util.List;
 
@@ -56,5 +57,70 @@ public class MainPresenter extends BasePresenter<MainContract.View> implements M
                         Timber.e(throwable.getMessage());
                     }
                 });
+    }
+
+    @Override
+    public void addNoteBook(String input) {
+        noteBooksCase.addNoteBook(Saver.getToken(), input)
+                .compose(getView().<Response<NoteBook>>getBindToLifecycle())
+                .compose(RxResultHelper.<Response<NoteBook>>handleResult())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new RxSubscriber<Response<NoteBook>>() {
+                    @Override
+                    public void _onNext(Response<NoteBook> response) {
+                        getView().addSuccessful(response.getData());
+                    }
+
+                    @Override
+                    public void _onError(Throwable throwable) {
+                        Timber.e(throwable.getMessage());
+                    }
+                });
+    }
+
+    @Override
+    public void deleteNoteBook(final NoteBook noteBook) {
+        noteBooksCase.deleteNoteBook(Saver.getToken(), noteBook.getId())
+                .compose(getView().<Response>getBindToLifecycle())
+                .compose(RxResultHelper.<Response>handleResult())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new RxSubscriber<Response>() {
+                    @Override
+                    public void _onNext(Response response) {
+                        getView().deleteSuccessful(noteBook);
+                    }
+
+                    @Override
+                    public void _onError(Throwable throwable) {
+                        Timber.e(throwable.getMessage());
+                    }
+                });
+    }
+
+    @Override
+    public void renameNoteBook(Section section, final String input) {
+        final NoteBook noteBook = section.getNoteBook();
+        final String oldName = noteBook.getName();
+        noteBook.setName(input);
+        noteBooksCase.renameNoteBook(Saver.getToken(), noteBook)
+                .compose(getView().<Response>getBindToLifecycle())
+                .compose(RxResultHelper.<Response>handleResult())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new RxSubscriber<Response>() {
+                    @Override
+                    public void _onNext(Response sponse) {
+                        noteBook.setModify_time(System.currentTimeMillis());
+                        getView().renameSuccessful(oldName, noteBook);
+                    }
+
+                    @Override
+                    public void _onError(Throwable throwable) {
+                        Timber.e(throwable.getMessage());
+                    }
+                });
+
     }
 }

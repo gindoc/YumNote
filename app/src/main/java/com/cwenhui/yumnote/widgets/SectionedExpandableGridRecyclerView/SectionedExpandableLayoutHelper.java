@@ -101,4 +101,9 @@ public class SectionedExpandableLayoutHelper implements SectionStateChangeListen
             notifyDataSetChanged();
         }
     }
+
+    public void rename(String oldName, NoteBook noteBook) {
+        removeSection(oldName);
+        addSection(noteBook, noteBook.getSubNoteBooks());
+    }
 }

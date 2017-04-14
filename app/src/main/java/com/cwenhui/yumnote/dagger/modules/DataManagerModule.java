@@ -63,7 +63,7 @@ public class DataManagerModule {
 
     private String createResponseBody(Interceptor.Chain chain) {
         HttpUrl uri = chain.request().url();
-        String path = uri.url().getPath();
+//        String path = uri.url().getPath();
         StringBuffer response = new StringBuffer();
         BufferedReader reader;
         AssetManager assetManager = ComponentHolder.getAppComponent().getContext().getAssets();
@@ -98,8 +98,9 @@ public class DataManagerModule {
                 Timber.d("requestBody : %s", bodyToString(request.body()));
                 Response intercepterResponse = null;
                 if (request.url().toString().contains("user")||
-                        request.url().toString().contains("notebooks")) {
-                    realRequest = request.newBuilder().build();
+                        request.url().toString().contains("notebook")) {
+                    realRequest = request.newBuilder()
+                            .build();
                 } else {
                     intercepterResponse = new Response.Builder()
                             .code(200)

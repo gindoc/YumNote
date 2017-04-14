@@ -5,9 +5,10 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.graphics.Path;
 import android.graphics.PathMeasure;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
+
+import timber.log.Timber;
 
 /**
  * 介绍：一个自定义View Path动画的工具类
@@ -46,7 +47,7 @@ public class PathAnimHelper {
 
     public PathAnimHelper(View view, Path sourcePath, Path animPath, long animTime, boolean isInfinite) {
         if (view == null || sourcePath == null || animPath == null) {
-            Log.e(TAG, "PathAnimHelper init error: view 、sourcePath、animPath can not be null");
+            Timber.e(TAG+"PathAnimHelper init error: view 、sourcePath、animPath can not be null");
             return;
         }
         mView = view;

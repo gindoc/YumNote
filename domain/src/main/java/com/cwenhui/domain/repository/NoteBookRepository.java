@@ -16,4 +16,10 @@ import rx.Observable;
 
 public interface NoteBookRepository {
     Observable<Response<List<NoteBook>>> requestNoteBooks(String token);
+
+    Observable<Response<NoteBook>> addNoteBook(String token, String bookName);
+
+    Observable<Response> deleteNoteBook(String token, int id);
+
+    Observable<Response> updateNoteBook(String token, NoteBook book);
 }

@@ -5,7 +5,7 @@ import com.cwenhui.domain.model.NoteBook;
 /**
  * Created by bpncool on 2/23/2016.
  */
-public class Section {
+public class Section implements Cloneable{
 
     //    private final String name;
     private NoteBook noteBook;
@@ -40,4 +40,12 @@ public class Section {
         return noteBook.getName();
     }
 
+    @Override
+    public Section clone() throws CloneNotSupportedException {
+        Section section = (Section) super.clone();
+        if (this.noteBook != null) {
+            section.noteBook = this.noteBook.clone();
+        }
+        return section;
+    }
 }

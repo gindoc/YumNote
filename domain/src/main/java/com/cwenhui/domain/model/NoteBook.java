@@ -2,7 +2,7 @@ package com.cwenhui.domain.model;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * 作者: GIndoc
@@ -10,7 +10,7 @@ import java.util.List;
  * 作用:
  */
 
-public class NoteBook {
+public class NoteBook implements Cloneable{
     private int notebookId;
     private String notebookName;
     @SerializedName("notebookModifytime")
@@ -19,7 +19,17 @@ public class NoteBook {
     private long notebookCreateTime;
 
     @SerializedName(value = "subNoteBooks", alternate = {"sub_note_books"})
-    private List<NoteBook> subNoteBooks;
+    private ArrayList<NoteBook> subNoteBooks;
+
+    public NoteBook(NoteBook noteBook) {
+        this.notebookId = noteBook.notebookId;
+        this.notebookName = noteBook.notebookName;
+        this.notebookCreateTime = noteBook.notebookCreateTime;
+        this.notebookModifyTime = noteBook.notebookModifyTime;
+        if (noteBook.subNoteBooks != null) {
+            this.subNoteBooks = (ArrayList<NoteBook>) noteBook.subNoteBooks.clone();
+        }
+    }
 
     public int getId() {
         return notebookId;
@@ -45,11 +55,11 @@ public class NoteBook {
         this.notebookModifyTime = modify_time;
     }
 
-    public List<NoteBook> getSubNoteBooks() {
+    public ArrayList<NoteBook> getSubNoteBooks() {
         return subNoteBooks;
     }
 
-    public void setSubNoteBooks(List<NoteBook> subNoteBooks) {
+    public void setSubNoteBooks(ArrayList<NoteBook> subNoteBooks) {
         this.subNoteBooks = subNoteBooks;
     }
 
@@ -59,5 +69,10 @@ public class NoteBook {
 
     public void setNotebookCreateTime(long notebookCreateTime) {
         this.notebookCreateTime = notebookCreateTime;
+    }
+
+    @Override
+    public NoteBook clone() throws CloneNotSupportedException {
+        return new NoteBook(this);
     }
 }

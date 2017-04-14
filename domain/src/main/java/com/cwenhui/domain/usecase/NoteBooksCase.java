@@ -27,4 +27,16 @@ public class NoteBooksCase {
     public Observable<Response<List<NoteBook>>> requestNoteBooks(String token) {
         return noteBookRepository.requestNoteBooks(token);
     }
+
+    public Observable<Response<NoteBook>> addNoteBook(String token, String bookName) {
+        return noteBookRepository.addNoteBook(token, bookName);
+    }
+
+    public Observable<Response> deleteNoteBook(String token, int id) {
+        return noteBookRepository.deleteNoteBook(token, id);
+    }
+
+    public Observable<Response> renameNoteBook(String token, NoteBook book) {
+        return noteBookRepository.updateNoteBook(token, book);
+    }
 }
