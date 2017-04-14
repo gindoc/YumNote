@@ -1,5 +1,6 @@
 package com.cwenhui.data.remote.service;
 
+import com.cwenhui.domain.model.Note;
 import com.cwenhui.domain.model.NoteBook;
 import com.cwenhui.domain.model.response.Response;
 
@@ -23,21 +24,22 @@ import rx.Observable;
  */
 public interface Api {
     @GET("notebooks")
-    Observable<Response<List<NoteBook>>> requestNoteBooks(@Query("token")String token);
+    Observable<Response<List<NoteBook>>> requestNoteBooks(@Query("token") String token);
 
     @Headers("Content-Type: application/x-www-form-urlencoded; charset=UTF-8;")
     @FormUrlEncoded
     @POST("user")
-    Observable<Response<String>> login(/*@Field("user") User user*/@Field("userName")String name,
-                                       @Field("userPassword")String pwd);
+    Observable<Response<String>> login(/*@Field("user") User user*/@Field("userName") String name,
+                                       @Field("userPassword") String pwd);
 
     @Headers("Content-Type: application/x-www-form-urlencoded; charset=UTF-8;")
     @FormUrlEncoded
     @POST("notebook")
-    Observable<Response<NoteBook>> addNoteBook(@Field("token") String token, @Field("notebookName") String bookName);
+    Observable<Response<NoteBook>> addNoteBook(@Field("token") String token, @Field("notebookName") String
+            bookName);
 
 
-//    @FormUrlEncoded
+    //    @FormUrlEncoded
     @DELETE("notebook")
     Observable<Response> deleteNoteBook(@Query("token") String token, @Query("bookId") int id);
 
@@ -46,4 +48,6 @@ public interface Api {
     @POST("notebook")
     Observable<Response> updateNoteBook(@FieldMap Map<String, Object> map);
 
+    @GET("notes")
+    Observable<Response<List<Note>>> requestNotes(@Query("token") String token, @Query("notebookId") int bookId);
 }

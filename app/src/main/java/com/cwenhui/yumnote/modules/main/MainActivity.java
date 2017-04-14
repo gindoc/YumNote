@@ -20,6 +20,7 @@ import com.cwenhui.domain.model.NoteBook;
 import com.cwenhui.yumnote.R;
 import com.cwenhui.yumnote.base.BaseActivity;
 import com.cwenhui.yumnote.databinding.ActivityMainBinding;
+import com.cwenhui.yumnote.modules.notes.NotesActivity;
 import com.cwenhui.yumnote.utils.StringUtils;
 import com.cwenhui.yumnote.utils.ToastUtil;
 import com.cwenhui.yumnote.widgets.SectionedExpandableGridRecyclerView.ItemClickListener;
@@ -50,7 +51,6 @@ public class MainActivity extends BaseActivity<MainContract.View, MainPresenter>
         initToolBar();
         setupNavigation();
         addNoteBook();
-        processStatusBar(mBinding.contentMain.toolbar, true, false);
 
         sectionedExpandableLayoutHelper = new SectionedExpandableLayoutHelper(this,
                 mBinding.contentMain.recyclerView, this, 1);
@@ -77,15 +77,12 @@ public class MainActivity extends BaseActivity<MainContract.View, MainPresenter>
         final ActionBar ab = getSupportActionBar();
         ab.setHomeAsUpIndicator(R.drawable.ic_menu);
         ab.setDisplayHomeAsUpEnabled(true);
+        processStatusBar(mBinding.contentMain.toolbar, true, false);
     }
 
     @Override
     protected MainPresenter createPresent() {
         return mPresenter;
-    }
-
-    public void test(View view) {
-        mPresenter.test();
     }
 
     @Override
@@ -155,7 +152,7 @@ public class MainActivity extends BaseActivity<MainContract.View, MainPresenter>
 
     @Override
     public void itemClicked(Section section) {
-        ToastUtil.show(this, section.getNoteBook().getName());
+        startActivity(NotesActivity.getStartIntent(this, section.getNoteBook()));
     }
 
     @Override

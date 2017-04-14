@@ -4,6 +4,7 @@ import com.cwenhui.yumnote.modules.guide.GuideActivity;
 import com.cwenhui.yumnote.modules.main.MainActivity;
 import com.cwenhui.yumnote.dagger.modules.ActivityModule;
 import com.cwenhui.yumnote.dagger.modules.FragmentModule;
+import com.cwenhui.yumnote.modules.notes.NotesActivity;
 import com.cwenhui.yumnote.modules.welcome.WelcomeActivity;
 
 import dagger.Subcomponent;
@@ -24,4 +25,6 @@ public interface ActivityComponent {
     void inject(GuideActivity guideActivity);
 
     void inject(WelcomeActivity welcomeActivity);
+
+    void inject(NotesActivity notesActivity);
 }

@@ -3,12 +3,6 @@
       xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/synchronize"
-        android:icon="@drawable/ic_reflesh"
-        android:title="同步"
-        android:orderInCategory="101"
-        app:showAsAction="always"/>
-    <item
         android:id="@+id/search"
         android:icon="@drawable/ic_search"
         android:title="搜索"

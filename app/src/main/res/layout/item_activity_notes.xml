@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tool="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.cwenhui.domain.model.Note"/>
+
+        <variable
+            name="presenter"
+            type="com.cwenhui.yumnote.modules.notes.NotesActivity.AdapterPresenter"/>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:onClick="@{()->presenter.onItemClick(item)}"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:padding="@dimen/x6"
+            android:text="@{item.noteTitle}"
+            android:textColor="#345345"
+            android:textSize="@dimen/x14"
+            tool:text="2017校招笔试题2017校招笔试题2017校招笔试题"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/x6"
+            android:paddingLeft="@dimen/x6"
+            android:textColor="@android:color/holo_blue_light"
+            android:textSize="@dimen/x10"
+            app:time_convert="@{item.noteCreateTime}"
+            tool:text="17-03-09"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#808080"
+            app:layout_marginTopPercent="2%"/>
+    </LinearLayout>
+</layout>

@@ -2,6 +2,7 @@ package com.cwenhui.domain.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -10,7 +11,7 @@ import java.util.ArrayList;
  * 作用:
  */
 
-public class NoteBook implements Cloneable{
+public class NoteBook implements Cloneable, Serializable{
     private int notebookId;
     private String notebookName;
     @SerializedName("notebookModifytime")
