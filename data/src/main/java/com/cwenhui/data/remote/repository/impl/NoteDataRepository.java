@@ -30,4 +30,9 @@ public class NoteDataRepository extends BaseRepository implements NoteRepository
     public Observable<Response<List<Note>>> requestNotes(String token, int bookId) {
         return api.requestNotes(token, bookId);
     }
+
+    @Override
+    public Observable<Response> deleteNote(String token, int bookId, int noteId) {
+        return api.deleteNote(token, bookId, noteId);
+    }
 }

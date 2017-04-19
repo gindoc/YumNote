@@ -15,4 +15,6 @@ import rx.Observable;
 public interface NoteRepository {
 
     Observable<Response<List<Note>>> requestNotes(String token, int bookId);
+
+    Observable<Response> deleteNote(String token, int bookId, int noteId);
 }

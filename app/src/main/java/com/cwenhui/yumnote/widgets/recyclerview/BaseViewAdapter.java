@@ -3,13 +3,10 @@ package com.cwenhui.yumnote.widgets.recyclerview;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.ViewGroup;
 
 import com.cwenhui.yumnote.BR;
 
 import java.util.List;
-
-import javax.inject.Provider;
 
 /**
  * Base Data Binding RecyclerView Adapter.
@@ -60,6 +57,10 @@ public abstract class BaseViewAdapter<T> extends RecyclerView.Adapter<BindingVie
     public void clear() {
         mCollection.clear();
         notifyDataSetChanged();
+    }
+
+    public T get(int position) {
+        return mCollection.get(position);
     }
 
     public void setDecorator(Decorator decorator) {

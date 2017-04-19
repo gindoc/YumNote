@@ -97,8 +97,8 @@ public class DataManagerModule {
                 Request realRequest = null;
                 Timber.d("requestBody : %s", bodyToString(request.body()));
                 Response intercepterResponse = null;
-                if (request.url().toString().contains("user")||
-                        request.url().toString().contains("notebook")) {
+                if (request.url().toString().contains("user")
+                        || request.url().toString().contains("note")) {
                     realRequest = request.newBuilder()
                             .build();
                 } else {

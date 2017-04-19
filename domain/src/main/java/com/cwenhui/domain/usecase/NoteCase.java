@@ -28,4 +28,7 @@ public class NoteCase {
         return noteRepository.requestNotes(token, bookId);
     }
 
+    public Observable<Response> deleteNote(String token, int bookId, int noteId) {
+        return noteRepository.deleteNote(token, bookId, noteId);
+    }
 }

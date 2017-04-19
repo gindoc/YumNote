@@ -48,4 +48,24 @@ public class NotesPresenter extends BasePresenter<NotesContract.View> implements
             }
         });
     }
+
+    @Override
+    public void deleteNote(int bookId, int noteId, final int pos) {
+        noteCase.deleteNote(Saver.getToken(), bookId, noteId)
+                .compose(getView().<Response>getBindToLifecycle())
+                .compose(RxResultHelper.<Response>handleResult())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new RxSubscriber<Response>() {
+                    @Override
+                    public void _onNext(Response response) {
+                        getView().deleteSuccessful(pos);
+                    }
+
+                    @Override
+                    public void _onError(Throwable throwable) {
+                        Timber.e(throwable.getMessage());
+                    }
+                });
+    }
 }

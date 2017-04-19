@@ -16,10 +16,14 @@ public interface NotesContract {
     interface View extends IBaseView {
 
         void loadNotes(List<Note> notes);
+
+        void deleteSuccessful(int note);
     }
 
     interface Presenter extends IBasePresenter {
         void requestNotes(int id);
+
+        void deleteNote(int bookId, int noteId, int pos);
     }
 
 }

@@ -35,7 +35,7 @@ import javax.inject.Inject;
 
 public class MainActivity extends BaseActivity<MainContract.View, MainPresenter> implements MainContract
         .View, ItemClickListener {
-    private final String[] OPERATIONS = {"删除","分享","重命名"};
+    private final String[] OPERATIONS = {"删除", "重命名"};
 
     @Inject
     MainPresenter mPresenter;
@@ -167,8 +167,6 @@ public class MainActivity extends BaseActivity<MainContract.View, MainPresenter>
                                 mPresenter.deleteNoteBook(section.getNoteBook());
                                 break;
                             case 1:
-                                break;
-                            case 2:
                                 rename(section);
                                 dialogInterface.dismiss();
                                 break;

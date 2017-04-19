@@ -38,10 +38,9 @@ public interface Api {
     Observable<Response<NoteBook>> addNoteBook(@Field("token") String token, @Field("notebookName") String
             bookName);
 
-
-    //    @FormUrlEncoded
     @DELETE("notebook")
-    Observable<Response> deleteNoteBook(@Query("token") String token, @Query("bookId") int id);
+    Observable<Response> deleteNoteBook(@Query("token") String token,
+                                        @Query("bookId") int id);
 
     @Headers("Content-Type: application/x-www-form-urlencoded; charset=UTF-8;")
     @FormUrlEncoded
@@ -50,4 +49,9 @@ public interface Api {
 
     @GET("notes")
     Observable<Response<List<Note>>> requestNotes(@Query("token") String token, @Query("notebookId") int bookId);
+
+    @DELETE("note")
+    Observable<Response> deleteNote(@Query("token") String token,
+                                    @Query("bookId") int bookId,
+                                    @Query("noteId") int noteId);
 }

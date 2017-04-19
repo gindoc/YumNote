@@ -9,15 +9,10 @@
             name="item"
             type="com.cwenhui.domain.model.Note"/>
 
-        <variable
-            name="presenter"
-            type="com.cwenhui.yumnote.modules.notes.NotesActivity.AdapterPresenter"/>
-
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:onClick="@{()->presenter.onItemClick(item)}"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 

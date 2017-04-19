@@ -2,7 +2,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.zhy.android.percent.support.PercentLinearLayout
+    <data>
+
+        <variable
+            name="view"
+            type="com.cwenhui.yumnote.modules.notes.NotesActivity"/>
+    </data>
+    <com.zhy.android.percent.support.PercentRelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -17,6 +23,17 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-    </com.zhy.android.percent.support.PercentLinearLayout>
+            android:layout_height="match_parent"
+            android:layout_below="@id/toolbar"/>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_add_note"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:onClick="@{()->view.addNote()}"
+            android:src="@drawable/ic_add_black_24dp"
+            app:layout_marginPercent="5%"/>
+    </com.zhy.android.percent.support.PercentRelativeLayout>
 </layout>

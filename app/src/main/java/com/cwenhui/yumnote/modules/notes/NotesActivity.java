@@ -1,22 +1,25 @@
 package com.cwenhui.yumnote.modules.notes;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.cwenhui.domain.model.Note;
 import com.cwenhui.domain.model.NoteBook;
 import com.cwenhui.yumnote.R;
 import com.cwenhui.yumnote.base.BaseActivity;
 import com.cwenhui.yumnote.databinding.ActivityNotesBinding;
-import com.cwenhui.yumnote.utils.ToastUtil;
 import com.cwenhui.yumnote.widgets.recyclerview.BaseViewAdapter;
+import com.cwenhui.yumnote.widgets.recyclerview.BindingViewHolder;
 import com.cwenhui.yumnote.widgets.recyclerview.SingleTypeAdapter;
 import com.trello.rxlifecycle.LifecycleTransformer;
 
@@ -33,6 +36,7 @@ public class NotesActivity extends BaseActivity<NotesContract.View, NotesPresent
         implements NotesContract.View {
     private static final String NOTEBOOK = "NOTEBOOK";
     private ActivityNotesBinding mBinding;
+    private int BOOK_ID;
 
     @Inject
     NotesPresenter mPresenter;
@@ -43,7 +47,9 @@ public class NotesActivity extends BaseActivity<NotesContract.View, NotesPresent
         getComponent().inject(this);
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_notes);
+        mBinding.setView(this);
         NoteBook noteBook = (NoteBook) getIntent().getSerializableExtra(NOTEBOOK);
+        BOOK_ID = noteBook.getId();
         initToolbar(noteBook.getName());
         initRecyclerView();
         mPresenter.requestNotes(noteBook.getId());
@@ -54,7 +60,7 @@ public class NotesActivity extends BaseActivity<NotesContract.View, NotesPresent
         mBinding.recyclerView.setAdapter(adapter);
         mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,
                 false));
-        adapter.setPresenter(new AdapterPresenter());
+        adapter.setDecorator(new AdapterDecorator());
     }
 
     private void initToolbar(String name) {
@@ -107,11 +113,43 @@ public class NotesActivity extends BaseActivity<NotesContract.View, NotesPresent
         adapter.addAll(notes);
     }
 
+    @Override
+    public void deleteSuccessful(int pos) {
+        adapter.remove(pos);
+        adapter.notifyDataSetChanged();
+    }
 
-    public class AdapterPresenter implements BaseViewAdapter.Presenter {
-        public void onItemClick(Note note) {
-            ToastUtil.show(NotesActivity.this, note.getNoteTitle());
+    public void addNote() {
+
+    }
+
+    public class AdapterDecorator implements BaseViewAdapter.Decorator{
+
+        @Override
+        public void decorator(BindingViewHolder holder, final int position, int viewType) {
+            holder.getBinding().getRoot().setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(NotesActivity.this)
+                            .setTitle("确定删除该笔记，删除后不可恢复？")
+                            .setPositiveButton("狠心删除", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    mPresenter.deleteNote(BOOK_ID, adapter.get(position).getNoteId(), position);
+                                }
+                            })
+                            .setNegativeButton("算了吧", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.dismiss();
+                                }
+                            });
+                    builder.show();
+                    return true;
+                }
+            });
         }
     }
+
 
 }
