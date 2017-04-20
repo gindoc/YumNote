@@ -1,7 +1,6 @@
 package com.cwenhui.yumnote.modules.note;
 
 import com.cwenhui.yumnote.base.BasePresenter;
-import com.cwenhui.yumnote.base.IBasePresenter;
 
 import javax.inject.Inject;
 
@@ -11,7 +10,7 @@ import javax.inject.Inject;
  * FOR   :
  */
 
-public class NotePresenter extends BasePresenter implements IBasePresenter {
+public class NotePresenter extends BasePresenter<NoteContract.View> implements NoteContract.Presenter {
 
     @Inject
     public NotePresenter() {

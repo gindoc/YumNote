@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SimilarToolbarBehavior">
+        <attr name="anchor_id" format="integer|reference"/>
+    </declare-styleable>
+</resources>

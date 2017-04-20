@@ -18,6 +18,7 @@ import com.cwenhui.domain.model.NoteBook;
 import com.cwenhui.yumnote.R;
 import com.cwenhui.yumnote.base.BaseActivity;
 import com.cwenhui.yumnote.databinding.ActivityNotesBinding;
+import com.cwenhui.yumnote.modules.note.NoteActivity;
 import com.cwenhui.yumnote.widgets.recyclerview.BaseViewAdapter;
 import com.cwenhui.yumnote.widgets.recyclerview.BindingViewHolder;
 import com.cwenhui.yumnote.widgets.recyclerview.SingleTypeAdapter;
@@ -146,6 +147,12 @@ public class NotesActivity extends BaseActivity<NotesContract.View, NotesPresent
                             });
                     builder.show();
                     return true;
+                }
+            });
+            holder.getBinding().getRoot().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(NoteActivity.getStartIntent(NotesActivity.this, adapter.get(position)));
                 }
             });
         }

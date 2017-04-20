@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
     <application
         android:name=".base.BaseApplication"
         android:allowBackup="true"
@@ -11,7 +12,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".modules.main.MainActivity"
+        <activity
+            android:name=".modules.main.MainActivity"
             android:launchMode="singleTask"/>
         <activity android:name=".modules.guide.GuideActivity"/>
         <activity
@@ -23,6 +25,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".modules.notes.NotesActivity"/>
+        <activity android:name=".modules.note.NoteActivity"/>
+
     </application>
 
 </manifest>
