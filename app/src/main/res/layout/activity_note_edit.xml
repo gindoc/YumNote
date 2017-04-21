@@ -67,7 +67,7 @@
                 android:layout_height="match_parent"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-                <jp.wasabeef.richeditor.RichEditor
+                <com.cwenhui.yumnote.widgets.richEditor.RichEditor
                     android:id="@+id/editor"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>

@@ -66,8 +66,11 @@ public class NoteActivity extends BaseActivity<NoteContract.View, NotePresenter>
     }
 
     public void openEditPage() {
+        Note note = (Note) getIntent().getSerializableExtra(NOTE);
+        note.setNoteTitle(mBinding.toolbar.getTitle().toString());
+        note.setNoteContent(mBinding.editor.getHtml());
         startActivityForResult(NoteEditActivity.getStartIntent(this,
-                (Note) getIntent().getSerializableExtra(NOTE)), TO_EDIT_PAGE);
+                note), TO_EDIT_PAGE);
     }
 
     @Override
