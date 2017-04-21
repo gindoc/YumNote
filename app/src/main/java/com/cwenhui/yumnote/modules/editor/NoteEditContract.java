@@ -15,12 +15,17 @@ public interface NoteEditContract {
     interface View extends IBaseView {
 
         void loadImg(List<String> urls);
+
+        void updateNoteSuccessful();
+
     }
 
     interface Presenter extends IBasePresenter {
         void uploadImg(String mImageCapturePath);
 
         void compressImg(String mImageCapturePath);
+
+        void updateNote(int noteId, String title, String content);
     }
 
 }

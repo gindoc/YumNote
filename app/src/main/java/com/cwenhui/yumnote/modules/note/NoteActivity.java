@@ -1,5 +1,6 @@
 package com.cwenhui.yumnote.modules.note;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -13,6 +14,7 @@ import com.cwenhui.domain.model.Note;
 import com.cwenhui.yumnote.R;
 import com.cwenhui.yumnote.base.BaseActivity;
 import com.cwenhui.yumnote.databinding.ActivityNoteBinding;
+import com.cwenhui.yumnote.modules.editor.NoteEditActivity;
 import com.trello.rxlifecycle.LifecycleTransformer;
 
 import javax.inject.Inject;
@@ -26,6 +28,7 @@ import javax.inject.Inject;
 public class NoteActivity extends BaseActivity<NoteContract.View, NotePresenter> implements NoteContract
         .View {
     private static final String NOTE = "NOTE";
+    private static final int TO_EDIT_PAGE = 101;
     @Inject
     NotePresenter mPresenter;
     private ActivityNoteBinding mBinding;
@@ -47,7 +50,8 @@ public class NoteActivity extends BaseActivity<NoteContract.View, NotePresenter>
     }
 
     private void initNote(String noteContent) {
-        mBinding.tvNoteContent.setText(noteContent);
+        mBinding.editor.setInputEnabled(false);
+        mBinding.editor.setHtml(noteContent);
     }
 
     private void initToolbar(String noteTitle) {
@@ -56,6 +60,11 @@ public class NoteActivity extends BaseActivity<NoteContract.View, NotePresenter>
         mBinding.toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
         setSupportActionBar(mBinding.toolbar);
         processStatusBar(mBinding.statusBar, true, false);
+    }
+
+    public void openEditPage() {
+        startActivityForResult(NoteEditActivity.getStartIntent(this,
+                (Note) getIntent().getSerializableExtra(NOTE)), TO_EDIT_PAGE);
     }
 
     @Override
@@ -88,5 +97,18 @@ public class NoteActivity extends BaseActivity<NoteContract.View, NotePresenter>
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode != Activity.RESULT_OK) {
+            return;
+        }
+        if (requestCode == TO_EDIT_PAGE) {
+            Note note = (Note) data.getSerializableExtra(NOTE);
+            mBinding.toolbar.setTitle(note.getNoteTitle());
+            mBinding.editor.setHtml(note.getNoteContent());
+        }
     }
 }

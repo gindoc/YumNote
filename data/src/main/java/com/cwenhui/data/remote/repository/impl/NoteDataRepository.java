@@ -48,4 +48,10 @@ public class NoteDataRepository extends BaseRepository implements NoteRepository
         params.put("file[]\"; filename=\"" + file.getName() , requestBody);
         return api.uploadImg(token, params);
     }
+
+    @Override
+    public Observable<Response> updateNote(Map<String, Object> note) {
+        note.put("_method", "put");
+        return api.updateNote(note);
+    }
 }

@@ -62,4 +62,9 @@ public interface Api {
     @POST("note/image")
     Observable<Response<List<String>>> uploadImg(@Query("token")String token,
                                                  @PartMap Map<String, RequestBody> params);
+
+    @Headers("Content-Type: application/x-www-form-urlencoded; charset=UTF-8;")
+    @FormUrlEncoded
+    @POST("note")
+    Observable<Response> updateNote(@FieldMap Map<String, Object> note);
 }

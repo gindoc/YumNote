@@ -44,14 +44,10 @@
                 android:layout_height="match_parent"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-                <TextView
-                    android:id="@+id/tv_note_content"
+                <jp.wasabeef.richeditor.RichEditor
+                    android:id="@+id/editor"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/x5"
-                    android:textColor="#123123"
-                    android:textIsSelectable="true"
-                    android:textSize="@dimen/x15"/>
+                    android:layout_height="match_parent"/>
             </android.support.v4.widget.NestedScrollView>
 
             <LinearLayout
@@ -61,8 +57,6 @@
                 android:background="@android:color/white"
                 android:orientation="horizontal"
                 app:anchor_id="@id/appbar"
-                android:paddingBottom="@dimen/x5"
-                android:paddingTop="@dimen/x5"
                 app:layout_behavior="com.cwenhui.yumnote.widgets.SimilarToolbarBehavior">
 
                 <ImageView
@@ -70,24 +64,33 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:paddingBottom="@dimen/x5"
+                    android:paddingTop="@dimen/x5"
+                    android:onClick="@{()->view.openEditPage()}"
                     android:src="@drawable/ic_border_color_black_20dp"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:paddingBottom="@dimen/x5"
+                    android:paddingTop="@dimen/x5"
                     android:src="@drawable/ic_chat_black_20dp"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:paddingBottom="@dimen/x5"
+                    android:paddingTop="@dimen/x5"
                     android:src="@drawable/ic_share_black_20dp"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:paddingBottom="@dimen/x5"
+                    android:paddingTop="@dimen/x5"
                     android:src="@drawable/ic_access_alarm_black_20dp"/>
             </LinearLayout>
 

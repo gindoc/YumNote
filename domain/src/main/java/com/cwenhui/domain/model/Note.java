@@ -22,6 +22,14 @@ public class Note implements Cloneable, Serializable {
 
     private String noteContent;
 
+    public Note(Note note) {
+        this.noteId = note.getNoteId();
+        this.noteTitle = note.getNoteTitle();
+        this.noteContent = note.getNoteContent();
+        this.noteCreateTime = note.getNoteCreateTime();
+        this.noteModifyTime = note.getNoteModifyTime();
+    }
+
     public int getNoteId() {
         return noteId;
     }
@@ -62,4 +70,8 @@ public class Note implements Cloneable, Serializable {
         this.noteContent = noteContent;
     }
 
+    @Override
+    public Note clone() throws CloneNotSupportedException {
+        return new Note(this);
+    }
 }

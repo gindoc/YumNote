@@ -6,6 +6,7 @@ import com.cwenhui.domain.repository.NoteRepository;
 
 import java.io.File;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -35,5 +36,9 @@ public class NoteCase {
 
     public Observable<Response<List<String>>> uploadImg(String token, File file) {
         return noteRepository.uploadImg(token, file);
+    }
+
+    public Observable<Response> updateNote(Map<String, Object> note) {
+        return noteRepository.updateNote(note);
     }
 }

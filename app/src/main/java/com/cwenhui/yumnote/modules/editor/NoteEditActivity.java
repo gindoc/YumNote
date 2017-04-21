@@ -1,6 +1,7 @@
 package com.cwenhui.yumnote.modules.editor;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.databinding.DataBindingUtil;
@@ -17,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 
+import com.cwenhui.domain.model.Note;
 import com.cwenhui.yumnote.R;
 import com.cwenhui.yumnote.base.BaseActivity;
 import com.cwenhui.yumnote.databinding.ActivityNoteEditBinding;
@@ -39,6 +41,7 @@ import javax.inject.Named;
 
 public class NoteEditActivity extends BaseActivity<NoteEditContract.View, NoteEditPresenter>
         implements NoteEditContract.View {
+    private static final String NOTE = "NOTE";
     public static final int RESUME_TEXT_SIZE = 0;
     public static final int INCREASE_TEXT_SIZE = 1;
     public static final int REDUCE_TEXT_SIZE = -1;
@@ -79,6 +82,12 @@ public class NoteEditActivity extends BaseActivity<NoteEditContract.View, NoteEd
         dialog = new AlertDialog.Builder(this)
                 .setView(binding.getRoot())
                 .create();
+
+        Note note = (Note) getIntent().getSerializableExtra(NOTE);
+        if (note != null) {
+            mBinding.tvTitle.setText(note.getNoteTitle());
+            mBinding.editor.setHtml(note.getNoteContent());
+        }
     }
 
     private void initToolbar() {
@@ -155,6 +164,12 @@ public class NoteEditActivity extends BaseActivity<NoteEditContract.View, NoteEd
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
+                Note note = (Note) getIntent().getSerializableExtra(NOTE);
+                if (note != null) {
+                    mPresenter.updateNote(note.getNoteId(),
+                            mBinding.tvTitle.getText().toString(),
+                            mBinding.editor.getHtml());
+                }
                 break;
             case R.id.undo:
                 mBinding.editor.undo();
@@ -217,5 +232,33 @@ public class NoteEditActivity extends BaseActivity<NoteEditContract.View, NoteEd
     public void loadImg(List<String> urls) {
         if (urls==null||urls.size()==0) return;
         mBinding.editor.insertImage(UPLOAD_IMAGE_PATH + urls.get(0), "图片显示故障了");
+    }
+
+    @Override
+    public void updateNoteSuccessful() {
+        Intent intent = new Intent();
+        Note noteSrc = (Note) getIntent().getSerializableExtra(NOTE);
+        try {
+            Note noteDes = noteSrc.clone();
+            intent.putExtra(NOTE, noteDes);
+            setResult(Activity.RESULT_OK, intent);
+            finish();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static Intent getStartIntent(Context context, Note note) {
+        Intent intent = new Intent(context, NoteEditActivity.class);
+        intent.putExtra(NOTE, note);
+        return intent;
+    }
+
+    @Override
+    protected void onDestroy() {
+        mBinding.editor.removeAllViews();
+        mBinding.editor.destroy();
+        super.onDestroy();
+
     }
 }

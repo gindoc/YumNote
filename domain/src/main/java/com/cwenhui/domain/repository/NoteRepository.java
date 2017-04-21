@@ -5,6 +5,7 @@ import com.cwenhui.domain.model.response.Response;
 
 import java.io.File;
 import java.util.List;
+import java.util.Map;
 
 import rx.Observable;
 
@@ -20,4 +21,6 @@ public interface NoteRepository {
     Observable<Response> deleteNote(String token, int bookId, int noteId);
 
     Observable<Response<List<String>>> uploadImg(String token, File file);
+
+    Observable<Response> updateNote(Map<String, Object> note);
 }

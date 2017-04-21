@@ -13,7 +13,9 @@ import com.cwenhui.yumnote.utils.rx.RxSubscriber;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -82,6 +84,31 @@ public class NoteEditPresenter extends BasePresenter<NoteEditContract.View>
                     @Override
                     public void _onNext(Void aVoid) {
                         uploadImg(filePath);
+                    }
+
+                    @Override
+                    public void _onError(Throwable throwable) {
+                        Timber.e(throwable.getMessage());
+                    }
+                });
+    }
+
+    @Override
+    public void updateNote(int noteId, String title, String content) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("noteId", noteId);
+        params.put("noteTitle", title);
+        params.put("noteContent", content);
+        params.put("token", Saver.getToken());
+        noteCase.updateNote(params)
+                .compose(getView().<Response>getBindToLifecycle())
+                .compose(RxResultHelper.<Response>handleResult())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new RxSubscriber<Response>() {
+                    @Override
+                    public void _onNext(Response response) {
+                        getView().updateNoteSuccessful();
                     }
 
                     @Override

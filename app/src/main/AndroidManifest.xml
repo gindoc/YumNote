@@ -19,15 +19,14 @@
         <activity
             android:name=".modules.welcome.WelcomeActivity"
             android:screenOrientation="portrait">
-        </activity>
-        <activity android:name=".modules.notes.NotesActivity"/>
-        <activity android:name=".modules.note.NoteActivity"/>
-        <activity android:name=".modules.editor.NoteEditActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name=".modules.notes.NotesActivity"/>
+        <activity android:name=".modules.note.NoteActivity"/>
+        <activity android:name=".modules.editor.NoteEditActivity"/>
 
     </application>
 
