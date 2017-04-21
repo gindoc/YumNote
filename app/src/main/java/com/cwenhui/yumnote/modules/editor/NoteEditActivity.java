@@ -240,6 +240,8 @@ public class NoteEditActivity extends BaseActivity<NoteEditContract.View, NoteEd
         Note noteSrc = (Note) getIntent().getSerializableExtra(NOTE);
         try {
             Note noteDes = noteSrc.clone();
+            noteDes.setNoteTitle(mBinding.tvTitle.getText().toString());
+            noteDes.setNoteContent(mBinding.editor.getHtml());
             intent.putExtra(NOTE, noteDes);
             setResult(Activity.RESULT_OK, intent);
             finish();

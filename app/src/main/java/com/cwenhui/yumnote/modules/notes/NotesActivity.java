@@ -1,5 +1,6 @@
 package com.cwenhui.yumnote.modules.notes;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -35,7 +36,10 @@ import javax.inject.Inject;
  */
 public class NotesActivity extends BaseActivity<NotesContract.View, NotesPresenter>
         implements NotesContract.View {
+    private static final String NOTE = "NOTE";
     private static final String NOTEBOOK = "NOTEBOOK";
+    private static final int TO_VIEW_PAGE = 99;
+    private static final String POSITION = "POSITION";
     private ActivityNotesBinding mBinding;
     private int BOOK_ID;
 
@@ -103,6 +107,20 @@ public class NotesActivity extends BaseActivity<NotesContract.View, NotesPresent
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != Activity.RESULT_OK) {
+            return;
+        }
+        if (requestCode == TO_VIEW_PAGE) {
+            int pos = data.getIntExtra(POSITION, -1);
+            adapter.remove(pos);
+            adapter.add(pos, (Note) data.getSerializableExtra(NOTE));
+            adapter.notifyDataSetChanged();
+        }
+    }
+
     public static Intent getStartIntent(Context context, NoteBook noteBook) {
         Intent intent = new Intent(context, NotesActivity.class);
         intent.putExtra(NOTEBOOK, noteBook);
@@ -152,7 +170,8 @@ public class NotesActivity extends BaseActivity<NotesContract.View, NotesPresent
             holder.getBinding().getRoot().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    startActivity(NoteActivity.getStartIntent(NotesActivity.this, adapter.get(position)));
+                    startActivityForResult(NoteActivity.getStartIntent(NotesActivity.this,
+                            position, adapter.get(position)), TO_VIEW_PAGE);
                 }
             });
         }

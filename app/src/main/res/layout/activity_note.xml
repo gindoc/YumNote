@@ -64,8 +64,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:paddingBottom="@dimen/x5"
-                    android:paddingTop="@dimen/x5"
+                    android:paddingBottom="@dimen/x10"
+                    android:paddingTop="@dimen/x10"
                     android:onClick="@{()->view.openEditPage()}"
                     android:src="@drawable/ic_border_color_black_20dp"/>
 
@@ -73,24 +73,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:paddingBottom="@dimen/x5"
-                    android:paddingTop="@dimen/x5"
+                    android:paddingBottom="@dimen/x10"
+                    android:paddingTop="@dimen/x10"
                     android:src="@drawable/ic_chat_black_20dp"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:paddingBottom="@dimen/x5"
-                    android:paddingTop="@dimen/x5"
+                    android:paddingBottom="@dimen/x10"
+                    android:paddingTop="@dimen/x10"
                     android:src="@drawable/ic_share_black_20dp"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:paddingBottom="@dimen/x5"
-                    android:paddingTop="@dimen/x5"
+                    android:paddingBottom="@dimen/x10"
+                    android:paddingTop="@dimen/x10"
                     android:src="@drawable/ic_access_alarm_black_20dp"/>
             </LinearLayout>
 

@@ -29,6 +29,8 @@ public class NoteActivity extends BaseActivity<NoteContract.View, NotePresenter>
         .View {
     private static final String NOTE = "NOTE";
     private static final int TO_EDIT_PAGE = 101;
+    private static final String POSITION = "POSITION";
+    private int position;
     @Inject
     NotePresenter mPresenter;
     private ActivityNoteBinding mBinding;
@@ -44,6 +46,7 @@ public class NoteActivity extends BaseActivity<NoteContract.View, NotePresenter>
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_note);
         mBinding.setView(this);
+        position = getIntent().getIntExtra(POSITION, -1);
         Note note = (Note) getIntent().getSerializableExtra(NOTE);
         initToolbar(note.getNoteTitle());
         initNote(note.getNoteContent());
@@ -77,9 +80,10 @@ public class NoteActivity extends BaseActivity<NoteContract.View, NotePresenter>
 
     }
 
-    public static Intent getStartIntent(Context context, Note note) {
+    public static Intent getStartIntent(Context context, int position, Note note) {
         Intent intent = new Intent(context, NoteActivity.class);
         intent.putExtra(NOTE, note);
+        intent.putExtra(POSITION, position);
         return intent;
     }
 
@@ -93,6 +97,13 @@ public class NoteActivity extends BaseActivity<NoteContract.View, NotePresenter>
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
+                Note note = (Note) getIntent().getSerializableExtra(NOTE);
+                note.setNoteTitle(mBinding.toolbar.getTitle().toString());
+                note.setNoteContent(mBinding.editor.getHtml());
+                Intent intent = new Intent();
+                intent.putExtra(NOTE, note);
+                intent.putExtra(POSITION, position);
+                setResult(Activity.RESULT_OK, intent);
                 finish();
                 return true;
         }
@@ -102,7 +113,7 @@ public class NoteActivity extends BaseActivity<NoteContract.View, NotePresenter>
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode != Activity.RESULT_OK) {
+        if (resultCode != Activity.RESULT_OK) {
             return;
         }
         if (requestCode == TO_EDIT_PAGE) {
