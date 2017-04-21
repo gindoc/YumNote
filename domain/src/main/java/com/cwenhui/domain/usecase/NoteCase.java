@@ -4,6 +4,7 @@ import com.cwenhui.domain.model.Note;
 import com.cwenhui.domain.model.response.Response;
 import com.cwenhui.domain.repository.NoteRepository;
 
+import java.io.File;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -30,5 +31,9 @@ public class NoteCase {
 
     public Observable<Response> deleteNote(String token, int bookId, int noteId) {
         return noteRepository.deleteNote(token, bookId, noteId);
+    }
+
+    public Observable<Response<List<String>>> uploadImg(String token, File file) {
+        return noteRepository.uploadImg(token, file);
     }
 }

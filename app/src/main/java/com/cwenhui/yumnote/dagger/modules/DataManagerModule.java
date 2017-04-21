@@ -45,6 +45,12 @@ public class DataManagerModule {
         return HttpUrl.parse(resources.getString(R.string.api));
     }
 
+    @Provides
+    @Named("upload_img_path")
+    String providesUploadImagePath(Resources resources) {
+        return resources.getString(R.string.upload_image_path);
+    }
+
 //    @Provides
 //    Converter.Factory providesLoganSquareConverter() {
 //        return LoganSquareConverterFactory.create();

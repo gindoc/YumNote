@@ -1,5 +1,6 @@
 package com.cwenhui.yumnote.dagger.components;
 
+import com.cwenhui.yumnote.modules.editor.NoteEditActivity;
 import com.cwenhui.yumnote.modules.guide.GuideActivity;
 import com.cwenhui.yumnote.modules.main.MainActivity;
 import com.cwenhui.yumnote.dagger.modules.ActivityModule;
@@ -30,4 +31,6 @@ public interface ActivityComponent {
     void inject(NotesActivity notesActivity);
 
     void inject(NoteActivity noteActivity);
+
+    void inject(NoteEditActivity noteEditActivity);
 }

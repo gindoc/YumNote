@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/undo"
+        android:title="撤销"
+        android:icon="@drawable/ic_undo_black_20dp"
+        app:showAsAction="always"
+        android:orderInCategory="100"/>
+    <item
+        android:id="@+id/redo"
+        android:title="取消撤销"
+        android:icon="@drawable/ic_redo_black_20dp"
+        app:showAsAction="always"
+        android:orderInCategory="101"/>
+    <item
+        android:id="@+id/rich_editor"
+        android:title="富文本"
+        android:icon="@drawable/ic_sort_dark_20dp"
+        app:showAsAction="always"
+        android:orderInCategory="102"/>
+    <item
+        android:id="@+id/take_pic"
+        android:title="拍照"
+        android:icon="@drawable/ic_camera_alt_black_20dp"
+        app:showAsAction="always"
+        android:orderInCategory="103"/>
+    <item
+        android:id="@+id/album"
+        android:title="选择相册图片"
+        app:showAsAction="never"
+        android:orderInCategory="104"/>
+
+    <item
+        android:id="@+id/cancel"
+        android:title="放弃编辑"
+        app:showAsAction="never"
+        android:orderInCategory="105"/>
+</menu>

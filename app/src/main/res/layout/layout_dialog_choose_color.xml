@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="view"
+            type="com.cwenhui.yumnote.modules.editor.NoteEditActivity"/>
+    </data>
+    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:columnCount="3"
+        android:rowCount="2">
+
+        <View
+            android:layout_width="@dimen/x55"
+            android:layout_height="@dimen/x55"
+            android:onClick='@{()->view.changeTextColor("#ff000000")}'
+            android:layout_margin="@dimen/x10"
+            android:background="@android:color/black"/>
+        <View
+            android:layout_width="@dimen/x55"
+            android:layout_height="@dimen/x55"
+            android:layout_margin="@dimen/x10"
+            android:onClick='@{()->view.changeTextColor("#ffff4444")}'
+            android:background="@android:color/holo_red_light"/>
+        <View
+            android:layout_width="@dimen/x55"
+            android:layout_height="@dimen/x55"
+            android:layout_margin="@dimen/x10"
+            android:onClick='@{()->view.changeTextColor("#ff33b5e5")}'
+            android:background="@android:color/holo_blue_light"/>
+        <View
+            android:layout_width="@dimen/x55"
+            android:layout_height="@dimen/x55"
+            android:layout_margin="@dimen/x10"
+            android:onClick='@{()->view.changeTextColor("#ff669900")}'
+            android:background="@android:color/holo_green_dark"/>
+        <View
+            android:layout_width="@dimen/x55"
+            android:layout_height="@dimen/x55"
+            android:layout_margin="@dimen/x10"
+            android:onClick='@{()->view.changeTextColor("#ffffbb33")}'
+            android:background="@android:color/holo_orange_light"/>
+        <View
+            android:layout_width="@dimen/x55"
+            android:layout_height="@dimen/x55"
+            android:layout_margin="@dimen/x10"
+            android:onClick='@{()->view.changeTextColor("#ffaa66cc")}'
+            android:background="@android:color/holo_purple"/>
+    </GridLayout>
+</layout>

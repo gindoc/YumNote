@@ -1,5 +1,9 @@
 package com.cwenhui.yumnote.utils;
 
+import android.os.Environment;
+
+import java.io.File;
+
 /**
  * <pre>
  *     author: Blankj
@@ -9,6 +13,7 @@ package com.cwenhui.yumnote.utils;
  * </pre>
  */
 public class ConstUtils {
+
 
     private ConstUtils() {
         throw new UnsupportedOperationException("u can't fuck me...");
@@ -119,4 +124,42 @@ public class ConstUtils {
      * 正则：IP地址
      */
     public static final String REGEX_IP = "((2[0-4]\\d|25[0-5]|[01]?\\d\\d?)\\.){3}(2[0-4]\\d|25[0-5]|[01]?\\d\\d?)";
+
+
+    /*********************************     项目相关常量    *******************************************/
+    /**
+     * 临时文件命名格式
+     */
+    public final static String TEMP_FILE_PATTERN_FORMAT = "yyyyMMddHHmmss";
+
+    /**
+     * 文件分隔符
+     */
+    public static final String SEPARATOR = File.separator;
+    /**
+     * 项目根目录
+     */
+    public static final String EXTERNAL_ROOT = "yumNote";
+
+    /**
+     * 项目在sd卡的全路径
+     */
+    public static final String EXTERNAL_STORAGE = Environment.getExternalStorageDirectory()
+            .getAbsolutePath() + SEPARATOR + EXTERNAL_ROOT + SEPARATOR;
+
+    /**
+     * 项目存放图片的文件夹路径
+     */
+    public static final String IMAGE_FOLDER = EXTERNAL_STORAGE + "image" + SEPARATOR;
+
+
+    /**
+     * 项目调用系统相机的请求码
+     */
+    public static final int TAKE_PIC_REQUEST_CODE = 1011;
+
+    /**
+     * 项目调用系统相册
+     */
+    public static final int OPEN_ALBUM = 1012;
 }

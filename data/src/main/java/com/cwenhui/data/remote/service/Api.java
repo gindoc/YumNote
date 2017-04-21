@@ -7,13 +7,16 @@ import com.cwenhui.domain.model.response.Response;
 import java.util.List;
 import java.util.Map;
 
+import okhttp3.RequestBody;
 import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PartMap;
 import retrofit2.http.Query;
 import rx.Observable;
 
@@ -54,4 +57,9 @@ public interface Api {
     Observable<Response> deleteNote(@Query("token") String token,
                                     @Query("bookId") int bookId,
                                     @Query("noteId") int noteId);
+
+    @Multipart
+    @POST("note/image")
+    Observable<Response<List<String>>> uploadImg(@Query("token")String token,
+                                                 @PartMap Map<String, RequestBody> params);
 }

@@ -3,6 +3,7 @@ package com.cwenhui.domain.repository;
 import com.cwenhui.domain.model.Note;
 import com.cwenhui.domain.model.response.Response;
 
+import java.io.File;
 import java.util.List;
 
 import rx.Observable;
@@ -17,4 +18,6 @@ public interface NoteRepository {
     Observable<Response<List<Note>>> requestNotes(String token, int bookId);
 
     Observable<Response> deleteNote(String token, int bookId, int noteId);
+
+    Observable<Response<List<String>>> uploadImg(String token, File file);
 }

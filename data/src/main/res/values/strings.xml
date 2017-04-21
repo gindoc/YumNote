@@ -2,5 +2,6 @@
     <string name="app_name">data</string>
     <!--<string name="api">http://192.168.1.103:8080/yumnote/api/</string>-->
     <string name="api">http://172.27.35.2:8080/yumnote/api/</string>
+    <string name="upload_image_path">http://172.27.35.2:8080/yumnote/upload/</string>
     <!--<string name="api">192.168.1.103</string>-->
 </resources>

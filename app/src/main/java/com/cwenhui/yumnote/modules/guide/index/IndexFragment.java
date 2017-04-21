@@ -16,7 +16,7 @@ import com.cwenhui.yumnote.base.BasePresenter;
 import com.cwenhui.yumnote.databinding.FragmentGuideIndexBinding;
 import com.cwenhui.yumnote.modules.guide.login.LoginFragment;
 import com.cwenhui.yumnote.modules.guide.regist.RegisterFragment;
-import com.cwenhui.yumnote.utils.DensityUtil;
+import com.cwenhui.yumnote.utils.ConvertUtils;
 import com.trello.rxlifecycle.LifecycleTransformer;
 
 import java.util.ArrayList;
@@ -74,8 +74,8 @@ public class IndexFragment extends BaseFragment {
             ImageView dotView = new ImageView(getContext());
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams
                     .WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            params.rightMargin = DensityUtil.dip2px(getContext(), 15);
-            params.leftMargin = DensityUtil.dip2px(getContext(), 15);
+            params.rightMargin = ConvertUtils.dip2px(getContext(), 15);
+            params.leftMargin = ConvertUtils.dip2px(getContext(), 15);
             mBinding.llDots.addView(dotView, params);
             dots.add(dotView);
             if (i == 0) {

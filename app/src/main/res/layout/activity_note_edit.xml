@@ -2,16 +2,193 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+
+        <variable
+            name="view"
+            type="com.cwenhui.yumnote.modules.editor.NoteEditActivity"/>
+    </data>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/x44"
-            android:background="@color/colorPrimary">
+            android:background="@color/colorPrimary"/>
 
-        </android.support.v7.widget.Toolbar>
+        <android.support.design.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@android:color/white">
+
+            <android.support.design.widget.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#dadada">
+
+                <EditText
+                    android:id="@+id/tv_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:hint="新建笔记"
+                    android:paddingBottom="@dimen/x5"
+                    android:paddingLeft="@dimen/x7"
+                    android:paddingRight="@dimen/x7"
+                    android:paddingTop="@dimen/x10"
+                    android:textColor="#3e3e3e"
+                    android:textColorHint="#939191"
+                    android:textSize="@dimen/x16"
+                    app:layout_scrollFlags="scroll|enterAlways"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_book"
+                    android:drawablePadding="@dimen/x10"
+                    android:gravity="center_vertical"
+                    android:paddingBottom="@dimen/x10"
+                    android:paddingLeft="@dimen/x7"
+                    android:paddingRight="@dimen/x7"
+                    android:paddingTop="@dimen/x5"
+                    android:text="个人笔记:/test/"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/x13"
+                    app:layout_scrollFlags="scroll|enterAlways"/>
+            </android.support.design.widget.AppBarLayout>
+
+            <android.support.v4.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                <jp.wasabeef.richeditor.RichEditor
+                    android:id="@+id/editor"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </android.support.v4.widget.NestedScrollView>
+
+        </android.support.design.widget.CoordinatorLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/ll_text_size_panel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#cccccc"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/x10"
+                    android:text="字体大小"
+                    android:textColor="#b533b5e5"
+                    android:textSize="@dimen/x13"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:onClick="@{()->view.changeTextSize(view.RESUME_TEXT_SIZE)}"
+                    android:paddingBottom="@dimen/x10"
+                    android:paddingTop="@dimen/x10"
+                    android:text="默认字号"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/x13"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{()->view.changeTextSize(view.REDUCE_TEXT_SIZE)}"
+                    android:padding="@dimen/x10"
+                    android:text="A-"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/x13"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{()->view.changeTextSize(view.INCREASE_TEXT_SIZE)}"
+                    android:padding="@dimen/x10"
+                    android:text="A+"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/x13"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_rich_editor"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x44"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:onClick="@{()->view.bold()}"
+                    android:paddingBottom="@dimen/x10"
+                    android:paddingTop="@dimen/x10"
+                    android:src="@drawable/ic_format_bold_black_20dp"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:onClick="@{()->view.strikeThrough()}"
+                    android:paddingBottom="@dimen/x10"
+                    android:paddingTop="@dimen/x10"
+                    android:src="@drawable/ic_format_strikethrough_black_20dp"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:onClick="@{()->view.colorText()}"
+                    android:paddingBottom="@dimen/x10"
+                    android:paddingTop="@dimen/x10"
+                    android:src="@drawable/ic_format_color_text_black_20dp"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:onClick="@{()->view.openTextSizePanel()}"
+                    android:paddingBottom="@dimen/x10"
+                    android:paddingTop="@dimen/x10"
+                    android:src="@drawable/ic_format_size_black_20dp"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:onClick="@{()->view.listBulleted()}"
+                    android:paddingBottom="@dimen/x10"
+                    android:paddingTop="@dimen/x10"
+                    android:src="@drawable/ic_format_list_bulleted_black_20dp"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:onClick="@{()->view.listNumbered()}"
+                    android:paddingBottom="@dimen/x10"
+                    android:paddingTop="@dimen/x10"
+                    android:src="@drawable/ic_format_list_numbered_black_20dp"/>
+            </LinearLayout>
+        </LinearLayout>
+
     </LinearLayout>
 </layout>
