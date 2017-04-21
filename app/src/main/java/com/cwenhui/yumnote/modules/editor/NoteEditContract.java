@@ -1,5 +1,6 @@
 package com.cwenhui.yumnote.modules.editor;
 
+import com.cwenhui.domain.model.Note;
 import com.cwenhui.yumnote.base.IBasePresenter;
 import com.cwenhui.yumnote.base.IBaseView;
 
@@ -18,6 +19,8 @@ public interface NoteEditContract {
 
         void updateNoteSuccessful();
 
+        void addNoteSuccessful(Note note);
+
     }
 
     interface Presenter extends IBasePresenter {
@@ -26,6 +29,8 @@ public interface NoteEditContract {
         void compressImg(String mImageCapturePath);
 
         void updateNote(int noteId, String title, String content);
+
+        void addNote(int bookId, String title, String content);
     }
 
 }

@@ -23,4 +23,6 @@ public interface NoteRepository {
     Observable<Response<List<String>>> uploadImg(String token, File file);
 
     Observable<Response> updateNote(Map<String, Object> note);
+
+    Observable<Response<Note>> addNote(Map<String, Object> params);
 }

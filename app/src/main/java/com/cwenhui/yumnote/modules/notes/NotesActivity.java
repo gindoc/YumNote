@@ -19,6 +19,7 @@ import com.cwenhui.domain.model.NoteBook;
 import com.cwenhui.yumnote.R;
 import com.cwenhui.yumnote.base.BaseActivity;
 import com.cwenhui.yumnote.databinding.ActivityNotesBinding;
+import com.cwenhui.yumnote.modules.editor.NoteEditActivity;
 import com.cwenhui.yumnote.modules.note.NoteActivity;
 import com.cwenhui.yumnote.widgets.recyclerview.BaseViewAdapter;
 import com.cwenhui.yumnote.widgets.recyclerview.BindingViewHolder;
@@ -38,14 +39,16 @@ public class NotesActivity extends BaseActivity<NotesContract.View, NotesPresent
         implements NotesContract.View {
     private static final String NOTE = "NOTE";
     private static final String NOTEBOOK = "NOTEBOOK";
-    private static final int TO_VIEW_PAGE = 99;
     private static final String POSITION = "POSITION";
+    private static final int TO_VIEW_PAGE = 99;
+    private static final int TO_EDIT_PAGE = 98;
+
     private ActivityNotesBinding mBinding;
+    SingleTypeAdapter<Note> adapter;
     private int BOOK_ID;
 
     @Inject
     NotesPresenter mPresenter;
-    SingleTypeAdapter<Note> adapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -117,7 +120,8 @@ public class NotesActivity extends BaseActivity<NotesContract.View, NotesPresent
             int pos = data.getIntExtra(POSITION, -1);
             adapter.remove(pos);
             adapter.add(pos, (Note) data.getSerializableExtra(NOTE));
-            adapter.notifyDataSetChanged();
+        } else if (requestCode == TO_EDIT_PAGE) {
+            adapter.add((Note) data.getSerializableExtra(NOTE));
         }
     }
 
@@ -139,10 +143,10 @@ public class NotesActivity extends BaseActivity<NotesContract.View, NotesPresent
     }
 
     public void addNote() {
-
+        startActivityForResult(NoteEditActivity.getStartIntent(this, BOOK_ID), TO_EDIT_PAGE);
     }
 
-    public class AdapterDecorator implements BaseViewAdapter.Decorator{
+    public class AdapterDecorator implements BaseViewAdapter.Decorator {
 
         @Override
         public void decorator(BindingViewHolder holder, final int position, int viewType) {
@@ -154,7 +158,8 @@ public class NotesActivity extends BaseActivity<NotesContract.View, NotesPresent
                             .setPositiveButton("狠心删除", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
-                                    mPresenter.deleteNote(BOOK_ID, adapter.get(position).getNoteId(), position);
+                                    mPresenter.deleteNote(BOOK_ID, adapter.get(position).getNoteId(),
+                                            position);
                                 }
                             })
                             .setNegativeButton("算了吧", new DialogInterface.OnClickListener() {

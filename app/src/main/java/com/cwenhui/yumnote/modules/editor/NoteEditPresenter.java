@@ -2,6 +2,7 @@ package com.cwenhui.yumnote.modules.editor;
 
 import android.graphics.Bitmap;
 
+import com.cwenhui.domain.model.Note;
 import com.cwenhui.domain.model.response.Response;
 import com.cwenhui.domain.usecase.NoteCase;
 import com.cwenhui.yumnote.base.BasePresenter;
@@ -109,6 +110,31 @@ public class NoteEditPresenter extends BasePresenter<NoteEditContract.View>
                     @Override
                     public void _onNext(Response response) {
                         getView().updateNoteSuccessful();
+                    }
+
+                    @Override
+                    public void _onError(Throwable throwable) {
+                        Timber.e(throwable.getMessage());
+                    }
+                });
+    }
+
+    @Override
+    public void addNote(int bookId, String title, String content) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("token", Saver.getToken());
+        params.put("notebookId", bookId);
+        params.put("noteTitle", title);
+        params.put("noteContent", content);
+        noteCase.addNote(params)
+                .compose(getView().<Response<Note>>getBindToLifecycle())
+                .compose(RxResultHelper.<Response<Note>>handleResult())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new RxSubscriber<Response<Note>>() {
+                    @Override
+                    public void _onNext(Response<Note> response) {
+                        getView().addNoteSuccessful(response.getData());
                     }
 
                     @Override

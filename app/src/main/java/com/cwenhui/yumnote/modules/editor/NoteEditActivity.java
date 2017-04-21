@@ -46,6 +46,7 @@ public class NoteEditActivity extends BaseActivity<NoteEditContract.View, NoteEd
     public static final int INCREASE_TEXT_SIZE = 1;
     public static final int REDUCE_TEXT_SIZE = -1;
     private static final int DEFAULT_TEXT_SIZE = 5;
+    private static final String BOOK_ID = "BOOK_ID";
     private int currentTextSize = DEFAULT_TEXT_SIZE;
     private ActivityNoteEditBinding mBinding;
 
@@ -169,6 +170,10 @@ public class NoteEditActivity extends BaseActivity<NoteEditContract.View, NoteEd
                     mPresenter.updateNote(note.getNoteId(),
                             mBinding.tvTitle.getText().toString(),
                             mBinding.editor.getHtml());
+                } else {
+                    int bookId = getIntent().getIntExtra(BOOK_ID, -1);
+                    mPresenter.addNote(bookId, mBinding.tvTitle.getText().toString(),
+                            mBinding.editor.getHtml());
                 }
                 break;
             case R.id.undo:
@@ -200,7 +205,8 @@ public class NoteEditActivity extends BaseActivity<NoteEditContract.View, NoteEd
                 startActivityForResult(intent, ConstUtils.TAKE_PIC_REQUEST_CODE);
                 break;
             case R.id.album:
-                Intent intent1 = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                Intent intent1 = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media
+                        .EXTERNAL_CONTENT_URI);
                 startActivityForResult(intent1, ConstUtils.OPEN_ALBUM);
                 break;
             case R.id.cancel:
@@ -214,7 +220,7 @@ public class NoteEditActivity extends BaseActivity<NoteEditContract.View, NoteEd
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (Activity.RESULT_OK != resultCode) return;
-        if (requestCode == ConstUtils.TAKE_PIC_REQUEST_CODE){
+        if (requestCode == ConstUtils.TAKE_PIC_REQUEST_CODE) {
             mPresenter.compressImg(mImageCapturePath);
         } else if (requestCode == ConstUtils.OPEN_ALBUM && data != null) {
             Uri selectedImage = data.getData();
@@ -230,7 +236,7 @@ public class NoteEditActivity extends BaseActivity<NoteEditContract.View, NoteEd
 
     @Override
     public void loadImg(List<String> urls) {
-        if (urls==null||urls.size()==0) return;
+        if (urls == null || urls.size() == 0) return;
         mBinding.editor.insertImage(UPLOAD_IMAGE_PATH + urls.get(0), "图片显示故障了");
     }
 
@@ -250,9 +256,23 @@ public class NoteEditActivity extends BaseActivity<NoteEditContract.View, NoteEd
         }
     }
 
+    @Override
+    public void addNoteSuccessful(Note note) {
+        Intent intent = new Intent();
+        intent.putExtra(NOTE, note);
+        setResult(Activity.RESULT_OK, intent);
+        finish();
+    }
+
     public static Intent getStartIntent(Context context, Note note) {
         Intent intent = new Intent(context, NoteEditActivity.class);
         intent.putExtra(NOTE, note);
+        return intent;
+    }
+
+    public static Intent getStartIntent(Context context, int bookId) {
+        Intent intent = new Intent(context, NoteEditActivity.class);
+        intent.putExtra(BOOK_ID, bookId);
         return intent;
     }
 

@@ -54,4 +54,9 @@ public class NoteDataRepository extends BaseRepository implements NoteRepository
         note.put("_method", "put");
         return api.updateNote(note);
     }
+
+    @Override
+    public Observable<Response<Note>> addNote(Map<String, Object> params) {
+        return api.addNote(params);
+    }
 }

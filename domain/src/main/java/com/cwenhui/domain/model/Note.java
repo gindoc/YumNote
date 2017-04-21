@@ -22,6 +22,9 @@ public class Note implements Cloneable, Serializable {
 
     private String noteContent;
 
+    public Note() {
+    }
+
     public Note(Note note) {
         this.noteId = note.getNoteId();
         this.noteTitle = note.getNoteTitle();

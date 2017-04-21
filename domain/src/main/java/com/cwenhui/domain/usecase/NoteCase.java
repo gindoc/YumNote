@@ -38,7 +38,11 @@ public class NoteCase {
         return noteRepository.uploadImg(token, file);
     }
 
-    public Observable<Response> updateNote(Map<String, Object> note) {
-        return noteRepository.updateNote(note);
+    public Observable<Response> updateNote(Map<String, Object> params) {
+        return noteRepository.updateNote(params);
+    }
+
+    public Observable<Response<Note>> addNote(Map<String, Object> params) {
+        return noteRepository.addNote(params);
     }
 }
