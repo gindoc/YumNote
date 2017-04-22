@@ -26,7 +26,8 @@
         </activity>
         <activity android:name=".modules.notes.NotesActivity"/>
         <activity android:name=".modules.note.NoteActivity"/>
-        <activity android:name=".modules.editor.NoteEditActivity"/>
+        <activity android:name=".modules.editor.NoteEditActivity"
+            android:process=":remote"/>
 
     </application>
 

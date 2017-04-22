@@ -278,9 +278,8 @@ public class NoteEditActivity extends BaseActivity<NoteEditContract.View, NoteEd
 
     @Override
     protected void onDestroy() {
-        mBinding.editor.removeAllViews();
-        mBinding.editor.destroy();
+        System.exit(0);
         super.onDestroy();
-
     }
+
 }
